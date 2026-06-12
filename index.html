@@ -3,26 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gatikart | Portafolio & Comisiones</title>
+    <title>Gatikart | Portafolio & Comisiones Profesionales</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,400&display=swap" rel="stylesheet">
     
     <style>
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #faf9f6; /* Fondo blanco roto / artístico */
+            background-color: #faf9f6; /* Tono lienzo / blanco roto */
         }
         .font-serif-art {
             font-family: 'Playfair Display', serif;
         }
-        /* Suavizar transiciones */
         .transition-all {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        /* Animación sutil para el indicador de comisiones abiertas */
+        @keyframes pulse-soft {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+        .pulse-dot {
+            animation: pulse-soft 2s infinite;
         }
     </style>
 </head>
@@ -33,33 +40,35 @@
     <script type="text/babel">
         const { useState } = React;
 
-        // Datos simulados del portafolio basados en los enlaces e inspiración artística
+        // Base de datos de obras actualizada con las nuevas imágenes del artista
         const PORTFOLIO_DATA = [
-            { id: 1, title: "Exploración Orgánica I", category: "Tradicional", img: "https://i.postimg.cc/RV3TFwXL/descarga-(2).png", desc: "Tinta y texturas naturales." },
-            { id: 2, title: "Estudio de Forma y Trazo", category: "Digital", img: "https://i.postimg.cc/wvfhxBNs/descarga-(1).png", desc: "Ilustración conceptual contemporánea." },
-            { id: 3, title: "Luz Encontrada", category: "Digital", img: "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?q=80&w=800&auto=format&fit=crop", desc: "Composición digital de alto contraste." },
-            { id: 4, title: "Inercia", category: "Tradicional", img: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?q=80&w=800&auto=format&fit=crop", desc: "Acuarela y técnicas mixtas." }
+            { id: 1, title: "Dualidad Orgánica", category: "Tradicional", img: "https://i.postimg.cc/RV3TFwXL/descarga-(2).png", desc: "Exploración de texturas naturales, entintado denso y líneas fluidas que evocan formas vivas." },
+            { id: 2, title: "Estudio de Silueta", category: "Digital", img: "https://i.postimg.cc/wvfhxBNs/descarga-(1).png", desc: "Ilustración conceptual contemporánea con un enfoque minimalista sobre la forma humana." },
+            { id: 3, title: "La Caída del Fragmento", category: "Tradicional", img: "https://i.postimg.cc/FRBDWpTr/descarga-(3).png", desc: "Composición surrealista que juega con la anatomía desestructurada y tramas mecánicas a mano." },
+            { id: 4, title: "Reflejo Líquido", category: "Digital", img: "https://i.postimg.cc/s1FKyXFH/descarga.png", desc: "Pintura digital de alto contraste que captura la fluidez expresiva y el manejo de sombras abstractas." },
+            { id: 5, title: "Gris de la Nostalgia", category: "Digital", img: "https://i.postimg.cc/pd164PTM/Whats-App-Image-2026-06-12-at-12-19-21-PM.jpg", desc: "Estudio tonal monocromático enfocado en la mirada y la atmósfera melancólica del trazo suave." },
+            { id: 6, title: "Vínculo Astral", category: "Digital", img: "https://i.postimg.cc/sXQNRbQr/Whats-App-Image-2026-06-12-at-12-19-21-PM22.jpg", desc: "Composición que entrelaza elementos de la fantasía clásica con una estética limpia e ilustración estilizada." },
+            { id: 7, title: "Esencia Encontrada", category: "Tradicional", img: "https://i.postimg.cc/PxpRk0ph/Whats-App-Image-2026-06-12-at-12-19-21-PM333.jpg", desc: "Obra de trazo libre en tinta china enfocada en la fuerza expresiva de los detalles anatómicos puros." }
         ];
 
         function App() {
             const [filter, setFilter] = useState("Todos");
             const [selectedImg, setSelectedImg] = useState(null);
             
-            // Estado para el cotizador dinámico de encargos (Comisiones)
+            // Estado para el calculador interactivo de presupuesto
             const [commissionType, setCommissionType] = useState("digital-base");
             const [characterCount, setCharacterCount] = useState(1);
             const [includeBackground, setIncludeBackground] = useState(false);
 
-            // Precios base para el cálculo interactivo
             const prices = {
-                "digital-base": 30,
-                "tradicional-tinta": 45,
-                "oleo-lienzo": 120
+                "digital-base": 35,
+                "tradicional-tinta": 50,
+                "oleo-lienzo": 130
             };
 
             const calculateTotal = () => {
                 let base = prices[commissionType] * characterCount;
-                if (includeBackground) base += (prices[commissionType] * 0.5); // +50% por fondo complejo
+                if (includeBackground) base += (prices[commissionType] * 0.5);
                 return base;
             };
 
@@ -71,65 +80,78 @@
                 <div class="min-h-screen flex flex-col justify-between">
                     
                     {/* --- NAVBAR --- */}
-                    <nav class="sticky top-0 bg-white/80 backdrop-blur-md z-40 border-b border-neutral-100 px-6 py-4 flex justify-between items-center">
-                        <a href="#" class="text-2xl font-semibold tracking-wider text-neutral-900 font-serif-art italic">gatikart.</a>
+                    <nav class="sticky top-0 bg-[#faf9f6]/90 backdrop-blur-md z-40 border-b border-neutral-200/60 px-6 py-4 flex justify-between items-center max-w-7xl w-full mx-auto">
+                        <div class="flex items-center gap-3">
+                            <a href="#" class="text-2xl font-semibold tracking-wider text-neutral-900 font-serif-art italic">gatikart.</a>
+                            <span class="hidden sm:flex items-center gap-1.5 bg-emerald-50 text-emerald-700 text-[11px] font-bold tracking-wider uppercase px-2.5 py-1 rounded-full border border-emerald-200/60">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 pulse-dot"></span>
+                                Comisiones Abiertas
+                            </span>
+                        </div>
                         <div class="flex items-center gap-6 text-sm font-medium">
                             <a href="#portfolio" class="hover:text-neutral-500 transition-all">Portafolio</a>
+                            <a href="#proceso" class="hover:text-neutral-500 transition-all hidden md:inline">El Proceso</a>
                             <a href="#comisiones" class="hover:text-neutral-500 transition-all">Encargos</a>
                             <a 
                                 href="https://www.instagram.com/gatikart/" 
                                 target="_blank" 
                                 rel="noopener noreferrer"
-                                class="bg-neutral-900 text-white px-4 py-2 rounded-full hover:bg-neutral-700 transition-all flex items-center gap-2"
+                                class="bg-neutral-900 text-white px-4 py-2 rounded-full hover:bg-neutral-700 transition-all flex items-center gap-2 text-xs uppercase tracking-wider font-semibold"
                             >
                                 <span>Instagram</span>
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
                             </a>
                         </div>
                     </nav>
 
                     {/* --- HERO SECTION --- */}
-                    <header class="px-6 py-20 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                        <div>
+                    <header class="px-6 py-16 md:py-24 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                        <div class="order-2 md:order-1">
                             <span class="text-xs font-bold uppercase tracking-widest text-neutral-400 block mb-3">Ilustrador & Artista Visual</span>
-                            <h1 class="text-5xl md:text-6xl font-serif-art text-neutral-900 leading-tight mb-6">
+                            <h1 class="text-4xl sm:text-5xl md:text-6xl font-serif-art text-neutral-900 leading-tight mb-6">
                                 Espacios en blanco transformados en <span class="italic text-neutral-600">historias</span>.
                             </h1>
-                            <p class="text-neutral-600 mb-8 max-w-md leading-relaxed">
-                                Bienvenido a mi rincón de arte. Aquí puedes explorar mis últimas obras, proyectos personales y solicitar piezas personalizadas hechas a tu medida.
+                            <p class="text-neutral-600 mb-8 max-w-md leading-relaxed text-sm sm:text-base">
+                                Bienvenido a mi galería personal. Una cuidadosa amalgama de arte digital contemporáneo y texturas orgánicas hechas a mano. Explora mis piezas o solicita una obra personalizada única.
                             </p>
                             <div class="flex gap-4">
-                                <a href="#comisiones" class="bg-neutral-900 text-white px-6 py-3 rounded-md hover:bg-neutral-800 font-medium transition-all shadow-sm">
-                                    Encargar un dibujo
+                                <a href="#comisiones" class="bg-neutral-900 text-white px-6 py-3.5 rounded-md hover:bg-neutral-800 font-semibold text-sm transition-all shadow-sm tracking-wide">
+                                    Encargar Dibujo
                                 </a>
-                                <a href="#portfolio" class="border border-neutral-300 px-6 py-3 rounded-md hover:bg-neutral-50 font-medium transition-all">
+                                <a href="#portfolio" class="border border-neutral-300 bg-white/50 px-6 py-3.5 rounded-md hover:bg-white font-semibold text-sm transition-all tracking-wide">
                                     Ver Portafolio
                                 </a>
                             </div>
                         </div>
-                        {/* Galería collage interactiva/visual */}
-                        <div class="grid grid-cols-2 gap-4 relative">
-                            <div class="absolute -inset-4 bg-neutral-100/50 rounded-3xl -z-10 transform rotate-1"></div>
-                            <img src="https://i.postimg.cc/RV3TFwXL/descarga-(2).png" class="rounded-xl shadow-md transform hover:scale-[1.02] transition-all object-cover h-64 w-full" alt="Arte Gatikart 1" />
-                            <img src="https://i.postimg.cc/wvfhxBNs/descarga-(1).png" class="rounded-xl shadow-md transform translate-y-8 hover:scale-[1.02] transition-all object-cover h-64 w-full" alt="Arte Gatikart 2" />
+                        
+                        {/* Galería Collage con Toque Editorial y las fotos del artista */}
+                        <div class="order-1 md:order-2 grid grid-cols-2 gap-4 relative">
+                            <div class="absolute -inset-4 bg-neutral-200/40 rounded-3xl -z-10 transform -rotate-1 border border-neutral-300/30"></div>
+                            <div class="overflow-hidden rounded-2xl shadow-md border border-white p-1.5 bg-white transform hover:scale-[1.01] transition-all">
+                                <img src="https://i.postimg.cc/RV3TFwXL/descarga-(2).png" class="rounded-xl h-48 sm:h-64 w-full object-cover" alt="Arte de Gatikart" />
+                            </div>
+                            <div class="overflow-hidden rounded-2xl shadow-md border border-white p-1.5 bg-white transform translate-y-6 hover:scale-[1.01] transition-all">
+                                <img src="https://i.postimg.cc/wvfhxBNs/descarga-(1).png" class="rounded-xl h-48 sm:h-64 w-full object-cover" alt="Arte de Gatikart" />
+                            </div>
                         </div>
                     </header>
 
-                    {/* --- PORTFOLIO SECTION (Dinamismo con React) --- */}
-                    <section id="portfolio" class="bg-white py-20 px-6 border-t border-b border-neutral-100">
+                    {/* --- PORTFOLIO SECTION --- */}
+                    <section id="portfolio" class="bg-white py-20 px-6 border-t border-b border-neutral-200/60">
                         <div class="max-w-6xl mx-auto">
                             <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
                                 <div>
-                                    <h2 class="text-3xl font-serif-art text-neutral-900">Portafolio Seleccionado</h2>
-                                    <p class="text-neutral-500 mt-2">Haz clic en cualquier obra para expandirla.</p>
+                                    <h2 class="text-3xl sm:text-4xl font-serif-art text-neutral-900">Portafolio Curado</h2>
+                                    <p class="text-neutral-500 text-sm mt-2">Haz clic sobre cualquier ilustración para apreciar los detalles del trazo y su concepto.</p>
                                 </div>
+                                
                                 {/* Filtros Reactivos */}
-                                <div class="flex gap-2 bg-neutral-100 p-1 rounded-lg text-sm font-medium">
+                                <div class="flex gap-1 bg-neutral-100 p-1.5 rounded-xl text-xs sm:text-sm font-semibold">
                                     {["Todos", "Digital", "Tradicional"].map((cat) => (
                                         <button 
                                             key={cat}
                                             onClick={() => setFilter(cat)}
-                                            class={`px-4 py-2 rounded-md transition-all ${filter === cat ? 'bg-white text-neutral-900 shadow-sm' : 'text-neutral-500 hover:text-neutral-900'}`}
+                                            class={`px-4 py-2 rounded-lg transition-all ${filter === cat ? 'bg-white text-neutral-900 shadow-sm' : 'text-neutral-500 hover:text-neutral-900'}`}
                                         >
                                             {cat}
                                         </button>
@@ -137,155 +159,188 @@
                                 </div>
                             </div>
 
-                            {/* Grid Reactivo */}
-                            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+                            {/* Grid Dinámico de Obras */}
+                            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                                 {filteredPortfolio.map((item) => (
                                     <div 
                                         key={item.id} 
-                                        class="group cursor-pointer"
+                                        class="group cursor-pointer bg-[#faf9f6]/40 p-2.5 rounded-2xl border border-transparent hover:border-neutral-200/70 hover:bg-white transition-all"
                                         onClick={() => setSelectedImg(item)}
                                     >
-                                        <div class="overflow-hidden rounded-xl bg-neutral-100 mb-3 aspect-square relative">
+                                        <div class="overflow-hidden rounded-xl bg-neutral-100 mb-3 aspect-[4/5] relative">
                                             <img 
                                                 src={item.img} 
                                                 alt={item.title} 
-                                                class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105"
+                                                class="w-full h-full object-cover transition-all duration-500 group-hover:scale-[1.03]"
                                             />
-                                            <div class="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-all flex items-center justify-center">
-                                                <span class="bg-white/90 text-xs font-semibold px-3 py-2 rounded-full shadow-sm text-neutral-800">Ver Detalles</span>
+                                            <div class="absolute inset-0 bg-neutral-900/10 opacity-0 group-hover:opacity-100 transition-all flex items-center justify-center backdrop-blur-[2px]">
+                                                <span class="bg-white/95 text-xs font-bold tracking-wider uppercase px-4 py-2 rounded-full shadow-md text-neutral-800 transform translate-y-2 group-hover:translate-y-0 transition-all">Expandir Arte</span>
                                             </div>
                                         </div>
-                                        <h3 class="font-semibold text-neutral-900 text-base">{item.title}</h3>
-                                        <p class="text-xs text-neutral-400 uppercase tracking-wider mt-0.5">{item.category}</p>
+                                        <div class="px-1">
+                                            <h3 class="font-bold text-neutral-900 text-base group-hover:text-neutral-600 transition-all">{item.title}</h3>
+                                            <p class="text-[11px] text-neutral-400 font-bold uppercase tracking-widest mt-0.5">{item.category}</p>
+                                        </div>
                                     </div>
                                 ))}
                             </div>
                         </div>
                     </section>
 
-                    {/* --- SECCIÓN DE ENCARGOS / INTERACTIVA (Cotizador) --- */}
-                    <section id="comisiones" class="py-20 px-6 max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12">
+                    {/* --- EL PROCESO / SOBRE MÍ --- */}
+                    <section id="proceso" class="py-20 px-6 max-w-6xl mx-auto border-b border-neutral-200/40">
+                        <div class="text-center max-w-xl mx-auto mb-16">
+                            <span class="text-xs font-bold uppercase tracking-widest text-neutral-400 block mb-2">Metodología de trabajo</span>
+                            <h2 class="text-3xl sm:text-4xl font-serif-art text-neutral-900">¿Cómo transformo tus ideas?</h2>
+                            <p class="text-neutral-500 text-sm mt-3">Un flujo transparente diseñado para involucrarte en cada etapa crítica de la creación de tu dibujo.</p>
+                        </div>
                         
-                        <div class="lg:col-span-5">
-                            <span class="text-xs font-bold uppercase tracking-widest text-neutral-400 block mb-2">Comisiones abiertas</span>
-                            <h2 class="text-4xl font-serif-art text-neutral-900 mb-6">¿Quieres algo exclusivo?</h2>
-                            <p class="text-neutral-600 mb-6 leading-relaxed">
-                                Puedes encargar piezas personalizadas directamente desde aquí. Usa el simulador de la derecha para calcular un estimado del costo según tus requerimientos.
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                            <div class="bg-white p-6 rounded-2xl border border-neutral-200/60 shadow-sm relative">
+                                <span class="absolute top-4 right-6 font-serif-art text-4xl italic text-neutral-200/80 font-bold">01</span>
+                                <div class="w-10 h-10 bg-neutral-100 rounded-xl flex items-center justify-center font-bold text-neutral-800 mb-4 mx-auto">A</div>
+                                <h3 class="font-bold text-lg text-neutral-900 mb-2">Boceto Inicial</h3>
+                                <p class="text-neutral-500 text-sm leading-relaxed">Definimos la composición general, proporciones y referencias de pose sobre líneas guías limpias.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-2xl border border-neutral-200/60 shadow-sm relative">
+                                <span class="absolute top-4 right-6 font-serif-art text-4xl italic text-neutral-200/80 font-bold">02</span>
+                                <div class="w-10 h-10 bg-neutral-100 rounded-xl flex items-center justify-center font-bold text-neutral-800 mb-4 mx-auto">B</div>
+                                <h3 class="font-bold text-lg text-neutral-900 mb-2">Lineart & Valores</h3>
+                                <p class="text-neutral-500 text-sm leading-relaxed">Se consolida el entintado final refinado o el trazo digital definitivo para asegurar el detalle estructural.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-2xl border border-neutral-200/60 shadow-sm relative">
+                                <span class="absolute top-4 right-6 font-serif-art text-4xl italic text-neutral-200/80 font-bold">03</span>
+                                <div class="w-10 h-10 bg-neutral-100 rounded-xl flex items-center justify-center font-bold text-neutral-800 mb-4 mx-auto">C</div>
+                                <h3 class="font-bold text-lg text-neutral-900 mb-2">Color & Textura</h3>
+                                <p class="text-neutral-500 text-sm leading-relaxed">Aplicación de paletas personalizadas, tramas detalladas y efectos atmosféricos antes de la entrega en HD.</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* --- SECTION ENCARGOS & COTIZADOR --- */}
+                    <section id="comisiones" class="py-20 px-6 max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                        
+                        <div class="lg:col-span-5 lg:sticky lg:top-24">
+                            <span class="inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-700 text-[10px] font-bold tracking-widest uppercase px-2.5 py-1 rounded-full border border-emerald-200/60 mb-3">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 pulse-dot"></span>
+                                Cupos Disponibles
+                            </span>
+                            <h2 class="text-3xl sm:text-4xl font-serif-art text-neutral-900 mb-6">Solicita una pieza exclusiva</h2>
+                            <p class="text-neutral-600 mb-6 leading-relaxed text-sm sm:text-base">
+                                Ya sea para un avatar en redes sociales, un fondo detallado o arte conceptual original, puedes simular tu cotización aproximada en el panel interactivo de la derecha.
                             </p>
                             
-                            <div class="space-y-4 border-l-2 border-neutral-200 pl-4 text-sm text-neutral-600">
-                                <div>
-                                    <h4 class="font-semibold text-neutral-900">1. Envía la solicitud</h4>
-                                    <p>Configura tu idea en el panel y presiona el botón para contactarme por Instagram o correo.</p>
-                                </div>
-                                <div>
-                                    <h4 class="font-semibold text-neutral-900">2. Revisión de Idea</h4>
-                                    <p>Hablamos de los detalles, referencias de poses, paletas de colores y personajes.</p>
-                                </div>
-                                <div>
-                                    <h4 class="font-semibold text-neutral-900">3. Entrega</h4>
-                                    <p>Te enviaré avances del boceto antes del entintado o render final.</p>
-                                </div>
+                            <div class="p-4 bg-neutral-100/60 rounded-xl border border-neutral-200/40 text-xs text-neutral-500 space-y-2">
+                                <p class="font-bold text-neutral-700 uppercase tracking-wider text-[10px]">Términos de servicio rápido:</p>
+                                <p>• Las obras base son estrictamente para <strong>Uso Personal</strong> (redes, regalos, impresiones privadas).</p>
+                                <p>• El tiempo aproximado de entrega oscila entre 7 a 15 días hábiles.</p>
                             </div>
                         </div>
 
-                        {/* Cotizador Reactivo */}
-                        <div class="lg:col-span-7 bg-white p-8 rounded-2xl border border-neutral-200 shadow-sm">
-                            <h3 class="text-xl font-semibold text-neutral-900 mb-6 flex items-center gap-2">
-                                <svg class="w-5 h-5 text-neutral-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
-                                Simulador de Presupuesto
+                        {/* Cotizador Reactivo Estilizado */}
+                        <div class="lg:col-span-7 bg-white p-6 sm:p-8 rounded-2xl border border-neutral-200/80 shadow-sm relative">
+                            <h3 class="text-lg font-bold text-neutral-900 mb-6 flex items-center gap-2 border-b border-neutral-100 pb-4">
+                                <svg class="w-5 h-5 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                                Configurador de Encargo Interactiva
                             </h3>
                             
                             <div class="space-y-6">
                                 {/* Tipo de Formato */}
                                 <div>
-                                    <label class="block text-xs font-bold uppercase tracking-wider text-neutral-500 mb-2">Estilo / Técnica</label>
+                                    <label class="block text-[11px] font-bold uppercase tracking-wider text-neutral-400 mb-2">Estilo Técnico Dominante</label>
                                     <select 
                                         value={commissionType}
                                         onChange={(e) => setCommissionType(e.target.value)}
-                                        class="w-full bg-neutral-50 border border-neutral-200 rounded-lg p-3 text-sm focus:outline-none focus:border-neutral-400"
+                                        class="w-full bg-neutral-50 border border-neutral-200 rounded-xl p-3 text-sm font-medium focus:outline-none focus:border-neutral-400 transition-all"
                                     >
-                                        <option value="digital-base">Ilustración Digital (Base: $30 USD)</option>
-                                        <option value="tradicional-tinta">Tinta Tradicional en Papel (Base: $45 USD)</option>
-                                        <option value="oleo-lienzo">Óleo sobre Lienzo (Base: $120 USD)</option>
+                                        <option value="digital-base">Ilustración Estilo Digital (Base: $35 USD)</option>
+                                        <option value="tradicional-tinta">Tinta Tradicional en Papel (Base: $50 USD)</option>
+                                        <option value="oleo-lienzo">Óreo / Lienzo Físico Especial (Base: $130 USD)</option>
                                     </select>
                                 </div>
 
                                 {/* Cantidad de Personajes */}
                                 <div>
-                                    <label class="block text-xs font-bold uppercase tracking-wider text-neutral-500 mb-2">Número de Personajes/Elementos ({characterCount})</label>
+                                    <div class="flex justify-between items-center mb-2">
+                                        <label class="block text-[11px] font-bold uppercase tracking-wider text-neutral-400">Cantidad de Sujetos / Elementos clave</label>
+                                        <span class="bg-neutral-900 text-white text-xs font-bold px-2 py-0.5 rounded-md">{characterCount}</span>
+                                    </div>
                                     <input 
                                         type="range" min="1" max="4" 
                                         value={characterCount}
                                         onChange={(e) => setCharacterCount(parseInt(e.target.value))}
-                                        class="w-full accent-neutral-900" 
+                                        class="w-full accent-neutral-900 cursor-pointer" 
                                     />
-                                    <div class="flex justify-between text-xs text-neutral-400 mt-1">
-                                        <span>1 personaje</span>
-                                        <span>4+ (Sujeto a cambios)</span>
+                                    <div class="flex justify-between text-[11px] text-neutral-400 font-medium mt-1">
+                                        <span>1 Elemento</span>
+                                        <span>4 Elementos (Máx)</span>
                                     </div>
                                 </div>
 
-                                {/* Fondo */}
-                                <div class="flex items-center gap-3 bg-neutral-50 p-3 rounded-lg border border-neutral-200">
+                                {/* Fondo Complejo */}
+                                <div class="flex items-start gap-3 bg-neutral-50 p-4 rounded-xl border border-neutral-200/60 transition-all hover:bg-neutral-100/40">
                                     <input 
                                         type="checkbox" 
                                         id="bg-check"
                                         checked={includeBackground}
                                         onChange={(e) => setIncludeBackground(e.target.checked)}
-                                        class="w-4 h-4 accent-neutral-900 rounded"
+                                        class="w-4 h-4 accent-neutral-900 rounded mt-0.5 cursor-pointer"
                                     />
-                                    <label htmlFor="bg-check" class="text-sm font-medium text-neutral-700 cursor-pointer select-none">
-                                        ¿Incluir fondo complejo o detallado? (+50% al costo base)
+                                    <label htmlFor="bg-check" class="text-xs sm:text-sm font-medium text-neutral-700 cursor-pointer select-none leading-normal">
+                                        ¿Agregar un entorno complejo o fondo súper detallado? <span class="text-neutral-400 block mt-0.5 text-[11px]">(Añade un +50% extra sobre el costo base del estilo elegido)</span>
                                     </label>
                                 </div>
 
                                 {/* Total estimado en vivo */}
-                                <div class="pt-6 border-t border-neutral-100 flex justify-between items-center">
-                                    <div>
-                                        <span class="text-xs text-neutral-400 block font-bold uppercase">Total Estimado</span>
+                                <div class="pt-6 border-t border-neutral-200 flex flex-col sm:flex-row justify-between items-center gap-4">
+                                    <div class="text-center sm:text-left">
+                                        <span class="text-[10px] text-neutral-400 block font-bold uppercase tracking-widest">Presupuesto Estimado</span>
                                         <span class="text-3xl font-serif-art font-semibold text-neutral-900">${calculateTotal()} USD</span>
                                     </div>
                                     
-                                    {/* Enlace directo configurado con mensaje a Instagram */}
                                     <a 
-                                        href={`https://www.instagram.com/gatikart/`} 
+                                        href="https://www.instagram.com/gatikart/" 
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        class="bg-neutral-900 text-white px-6 py-3 rounded-lg hover:bg-neutral-800 transition-all font-medium text-sm text-center"
+                                        class="w-full sm:w-auto bg-neutral-900 text-white px-6 py-3.5 rounded-xl hover:bg-neutral-800 transition-all font-bold text-xs uppercase tracking-wider text-center shadow-md"
                                     >
-                                        Enviar Propuesta
+                                        Enviar Propuesta vía Instagram
                                     </a>
                                 </div>
                             </div>
                         </div>
                     </section>
 
-                    {/* --- LIGHTBOX MODAL (Para ver las imágenes ampliadas de manera estética) --- */}
+                    {/* --- LIGHTBOX MODAL REFLEXIVO --- */}
                     {selectedImg && (
                         <div 
-                            class="fixed inset-0 bg-neutral-900/90 backdrop-blur-sm z-50 flex items-center justify-center p-4 transition-all"
+                            class="fixed inset-0 bg-neutral-950/90 backdrop-blur-sm z-50 flex items-center justify-center p-4 transition-all"
                             onClick={() => setSelectedImg(null)}
                         >
                             <div class="bg-white rounded-2xl max-w-2xl w-full overflow-hidden shadow-2xl relative" onClick={e => e.stopPropagation()}>
                                 <button 
-                                    class="absolute top-4 right-4 bg-white/80 hover:bg-white text-neutral-800 rounded-full p-2 transition-all shadow"
+                                    class="absolute top-4 right-4 bg-white/80 hover:bg-white text-neutral-800 rounded-full p-2 transition-all shadow-md z-10"
                                     onClick={() => setSelectedImg(null)}
                                 >
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                                 </button>
-                                <img src={selectedImg.img} alt={selectedImg.title} class="w-full h-auto max-h-[70vh] object-cover" />
-                                <div class="p-6">
-                                    <span class="text-xs font-bold uppercase text-neutral-400">{selectedImg.category}</span>
-                                    <h3 class="text-2xl font-serif-art text-neutral-900 mt-1">{selectedImg.title}</h3>
-                                    <p class="text-neutral-600 text-sm mt-2">{selectedImg.desc}</p>
+                                
+                                <div class="bg-neutral-100 flex items-center justify-center max-h-[60vh] overflow-hidden">
+                                    <img src={selectedImg.img} alt={selectedImg.title} class="w-full h-full object-contain" />
+                                </div>
+                                
+                                <div class="p-6 bg-white">
+                                    <span class="text-[10px] font-bold uppercase tracking-widest text-neutral-400 bg-neutral-100 px-2.5 py-1 rounded-md">{selectedImg.category}</span>
+                                    <h3 class="text-2xl font-serif-art text-neutral-900 mt-2">{selectedImg.title}</h3>
+                                    <p class="text-neutral-600 text-sm mt-2 leading-relaxed">{selectedImg.desc}</p>
+                                    
                                     <div class="mt-6 pt-4 border-t border-neutral-100 flex justify-end">
                                         <a 
                                             href="https://www.instagram.com/gatikart/" 
                                             target="_blank" 
-                                            class="text-sm font-semibold text-neutral-900 hover:underline flex items-center gap-1"
+                                            class="text-xs font-bold uppercase tracking-wider text-neutral-900 hover:text-neutral-600 flex items-center gap-1.5 transition-all"
                                         >
-                                            Preguntar por esta pieza <span>&rarr;</span>
+                                            Consultar Disponibilidad de Pieza <span>&rarr;</span>
                                         </a>
                                     </div>
                                 </div>
@@ -294,15 +349,15 @@
                     )}
 
                     {/* --- FOOTER --- */}
-                    <footer class="bg-neutral-900 text-neutral-400 py-12 px-6 mt-auto">
+                    <footer class="bg-neutral-950 text-neutral-400 py-12 px-6 mt-auto border-t border-neutral-900">
                         <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-                            <p class="text-sm font-serif-art italic text-white text-lg">gatikart.</p>
-                            <div class="flex gap-6 text-sm">
+                            <p class="text-xl font-serif-art italic text-white">gatikart.</p>
+                            <div class="flex gap-6 text-xs uppercase tracking-wider font-semibold">
                                 <a href="https://www.instagram.com/gatikart/" target="_blank" rel="noreferrer" class="hover:text-white transition-all">Instagram</a>
                                 <a href="#portfolio" class="hover:text-white transition-all">Portafolio</a>
                                 <a href="#comisiones" class="hover:text-white transition-all">Encargos</a>
                             </div>
-                            <p class="text-xs text-neutral-500">&copy; {new Date().getFullYear()} Gatikart. Todos los derechos reservados.</p>
+                            <p class="text-[11px] text-neutral-600">&copy; {new Date().getFullYear()} Gatikart. Diseñado con visión artística.</p>
                         </div>
                     </footer>
 
@@ -310,7 +365,7 @@
             );
         }
 
-        // Renderizar la aplicación en el nodo raíz
+        // Montaje de la aplicación React
         const root = ReactDOM.createRoot(document.getElementById('root'));
         root.render(<App />);
     </script>
