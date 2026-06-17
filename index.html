@@ -1,373 +1,1263 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gatikart | Portafolio & Comisiones Profesionales</title>
+    <title>GATIKART • NEBULAE • Chapter 01</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,400&display=swap" rel="stylesheet">
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+        
+        :root {
+            --accent: #6366f1;
+            --accent2: #d946ef;
+        }
+        
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #faf9f6; /* Tono lienzo / blanco roto */
+            font-family: 'Inter', system_ui, sans-serif;
         }
-        .font-serif-art {
-            font-family: 'Playfair Display', serif;
+        
+        .font-display {
+            font-family: 'Space Grotesk', 'Inter', system_ui, sans-serif;
+            font-weight: 600;
+            letter-spacing: -0.025em;
         }
-        .transition-all {
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+        .glass {
+            background: rgba(18, 18, 24, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
         }
-        /* Animación sutil para el indicador de comisiones abiertas */
-        @keyframes pulse-soft {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.4; }
+
+        .section-header {
+            font-size: 2.25rem;
+            line-height: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.04em;
         }
-        .pulse-dot {
-            animation: pulse-soft 2s infinite;
+
+        .comic-panel {
+            transition: transform 0.3s cubic-bezier(0.23, 1.0, 0.32, 1), 
+                       box-shadow 0.3s cubic-bezier(0.23, 1.0, 0.32, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .comic-panel:hover {
+            transform: translateY(-4px) scale(1.005);
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.4),
+                       0 0 0 1px rgb(99 102 241 / 0.1);
+        }
+
+        .comic-panel img {
+            transition: transform 0.6s cubic-bezier(0.23, 1.0, 0.32, 1);
+        }
+        
+        .comic-panel:hover img {
+            transform: scale(1.03);
+        }
+
+        .dialogue {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #e2e8f0;
+            position: relative;
+            padding-left: 1rem;
+        }
+        
+        .dialogue::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.35rem;
+            bottom: 0.35rem;
+            width: 3px;
+            background: linear-gradient(to bottom, #6366f1, #d946ef);
+            border-radius: 9999px;
+        }
+
+        .nav-active {
+            color: white;
+            position: relative;
+        }
+        
+        .nav-active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(to right, #6366f1, #d946ef);
+        }
+
+        .reader-container {
+            scrollbar-width: none;
+        }
+        
+        .reader-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .panel-number {
+            font-variant-numeric: tabular-nums;
+            font-feature-settings: "tnum";
+        }
+
+        .mode-btn {
+            transition: all 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        
+        .mode-btn.active {
+            background-color: #6366f1;
+            color: white;
+            box-shadow: 0 10px 15px -3px rgb(99 102 241 / 0.3);
+        }
+
+        .lumina-gradient {
+            background: linear-gradient(135deg, #6366f1, #d946ef);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nebula-bg {
+            background: radial-gradient(circle at 30% 20%, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 80%, rgba(217, 70, 239, 0.06) 0%, transparent 60%);
+        }
+
+        .comic-frame {
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.5),
+                       inset 0 0 0 1px rgba(255,255,255,0.08);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .scroll-snap-x {
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .scroll-snap-x > * {
+            scroll-snap-align: start;
+        }
+
+        .mini-thumb {
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+        }
+        
+        .mini-thumb.active {
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+            transform: scale(1.05);
+        }
+
+        .toast {
+            animation: toast-pop-in 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        @keyframes toast-pop-in {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .section-divider {
+            background: linear-gradient(to right, transparent, #27272a, transparent);
+        }
+
+        .modern-shadow {
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.3),
+                       0 4px 6px -4px rgb(0 0 0 / 0.3);
         }
     </style>
 </head>
-<body class="text-neutral-800 antialiased selection:bg-neutral-200">
+<body class="bg-[#0b0b10] text-slate-200 overflow-x-hidden">
+    <!-- NAVBAR -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass border-b border-white/10">
+        <div class="max-w-screen-2xl mx-auto">
+            <div class="px-8 py-4 flex items-center justify-between">
+                <!-- Logo -->
+                <div class="flex items-center gap-x-3">
+                    <div class="w-9 h-9 rounded-2xl bg-gradient-to-br from-indigo-500 via-violet-500 to-fuchsia-500 flex items-center justify-center shadow-lg shadow-indigo-500/30">
+                        <span class="text-white font-black text-2xl tracking-tighter">G</span>
+                    </div>
+                    <div>
+                        <span class="font-display text-3xl font-semibold tracking-tighter">GATIKART</span>
+                    </div>
+                </div>
 
-    <div id="root"></div>
+                <!-- Desktop Nav -->
+                <div class="hidden md:flex items-center gap-x-9 text-sm font-medium">
+                    <a href="#" class="hover:text-white transition-colors nav-active">Discover</a>
+                    <a href="#" class="hover:text-white transition-colors">Gallery</a>
+                    <a href="#" class="hover:text-white transition-colors">Commissions</a>
+                    <a href="https://www.instagram.com/gatikart/" target="_blank" class="hover:text-white transition-colors flex items-center gap-x-1.5 text-indigo-400">
+                        <i class="fa-brands fa-instagram text-base"></i> Instagram
+                    </a>
+                </div>
 
-    <script type="text/babel">
-        const { useState } = React;
+                <!-- Search + Actions -->
+                <div class="flex items-center gap-x-3">
+                    <!-- Search -->
+                    <div class="relative hidden md:block w-72">
+                        <input 
+                            type="text" 
+                            id="search-input"
+                            placeholder="Search art, projects..." 
+                            class="w-full bg-white/5 border border-white/10 focus:border-indigo-500/50 transition-colors text-sm pl-10 py-2.5 rounded-3xl outline-none placeholder:text-slate-500">
+                        <i class="fa-solid fa-search absolute left-4 top-3.5 text-slate-500"></i>
+                    </div>
 
-        // Base de datos de obras actualizada con las nuevas imágenes del artista
-        const PORTFOLIO_DATA = [
-            { id: 1, title: "Dualidad Orgánica", category: "Tradicional", img: "https://i.postimg.cc/RV3TFwXL/descarga-(2).png", desc: "Exploración de texturas naturales, entintado denso y líneas fluidas que evocan formas vivas." },
-            { id: 2, title: "Estudio de Silueta", category: "Digital", img: "https://i.postimg.cc/wvfhxBNs/descarga-(1).png", desc: "Ilustración conceptual contemporánea con un enfoque minimalista sobre la forma humana." },
-            { id: 3, title: "La Caída del Fragmento", category: "Tradicional", img: "https://i.postimg.cc/FRBDWpTr/descarga-(3).png", desc: "Composición surrealista que juega con la anatomía desestructurada y tramas mecánicas a mano." },
-            { id: 4, title: "Reflejo Líquido", category: "Digital", img: "https://i.postimg.cc/s1FKyXFH/descarga.png", desc: "Pintura digital de alto contraste que captura la fluidez expresiva y el manejo de sombras abstractas." },
-            { id: 5, title: "Gris de la Nostalgia", category: "Digital", img: "https://i.postimg.cc/pd164PTM/Whats-App-Image-2026-06-12-at-12-19-21-PM.jpg", desc: "Estudio tonal monocromático enfocado en la mirada y la atmósfera melancólica del trazo suave." },
-            { id: 6, title: "Vínculo Astral", category: "Digital", img: "https://i.postimg.cc/sXQNRbQr/Whats-App-Image-2026-06-12-at-12-19-21-PM22.jpg", desc: "Composición que entrelaza elementos de la fantasía clásica con una estética limpia e ilustración estilizada." },
-            { id: 7, title: "Esencia Encontrada", category: "Tradicional", img: "https://i.postimg.cc/PxpRk0ph/Whats-App-Image-2026-06-12-at-12-19-21-PM333.jpg", desc: "Obra de trazo libre en tinta china enfocada en la fuerza expresiva de los detalles anatómicos puros." }
-        ];
-
-        function App() {
-            const [filter, setFilter] = useState("Todos");
-            const [selectedImg, setSelectedImg] = useState(null);
-            
-            // Estado para el calculador interactivo de presupuesto
-            const [commissionType, setCommissionType] = useState("digital-base");
-            const [characterCount, setCharacterCount] = useState(1);
-            const [includeBackground, setIncludeBackground] = useState(false);
-
-            const prices = {
-                "digital-base": 35,
-                "tradicional-tinta": 50,
-                "oleo-lienzo": 130
-            };
-
-            const calculateTotal = () => {
-                let base = prices[commissionType] * characterCount;
-                if (includeBackground) base += (prices[commissionType] * 0.5);
-                return base;
-            };
-
-            const filteredPortfolio = filter === "Todos" 
-                ? PORTFOLIO_DATA 
-                : PORTFOLIO_DATA.filter(item => item.category === filter);
-
-            return (
-                <div class="min-h-screen flex flex-col justify-between">
-                    
-                    {/* --- NAVBAR --- */}
-                    <nav class="sticky top-0 bg-[#faf9f6]/90 backdrop-blur-md z-40 border-b border-neutral-200/60 px-6 py-4 flex justify-between items-center max-w-7xl w-full mx-auto">
-                        <div class="flex items-center gap-3">
-                            <a href="#" class="text-2xl font-semibold tracking-wider text-neutral-900 font-serif-art italic">gatikart.</a>
-                            <span class="hidden sm:flex items-center gap-1.5 bg-emerald-50 text-emerald-700 text-[11px] font-bold tracking-wider uppercase px-2.5 py-1 rounded-full border border-emerald-200/60">
-                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 pulse-dot"></span>
-                                Comisiones Abiertas
-                            </span>
+                    <!-- Profile -->
+                    <div class="flex items-center gap-x-2 pl-3 border-l border-white/10">
+                        <div class="flex items-center gap-x-2 cursor-pointer" onclick="showProfileMenu()">
+                            <div class="w-8 h-8 rounded-2xl overflow-hidden ring-2 ring-white/10">
+                                <img src="https://picsum.photos/id/1005/32/32" alt="Your avatar" class="w-full h-full object-cover">
+                            </div>
+                            <div class="hidden md:block">
+                                <div class="text-sm font-medium">Guest</div>
+                            </div>
                         </div>
-                        <div class="flex items-center gap-6 text-sm font-medium">
-                            <a href="#portfolio" class="hover:text-neutral-500 transition-all">Portafolio</a>
-                            <a href="#proceso" class="hover:text-neutral-500 transition-all hidden md:inline">El Proceso</a>
-                            <a href="#comisiones" class="hover:text-neutral-500 transition-all">Encargos</a>
-                            <a 
-                                href="https://www.instagram.com/gatikart/" 
-                                target="_blank" 
-                                rel="noopener noreferrer"
-                                class="bg-neutral-900 text-white px-4 py-2 rounded-full hover:bg-neutral-700 transition-all flex items-center gap-2 text-xs uppercase tracking-wider font-semibold"
-                            >
-                                <span>Instagram</span>
-                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                    </div>
+
+                    <!-- Mobile Menu -->
+                    <button onclick="toggleMobileMenu()" class="md:hidden w-10 h-10 flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="pt-20 relative min-h-[100dvh] flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 nebula-bg"></div>
+        
+        <!-- Subtle animated stars -->
+        <canvas id="hero-canvas" class="absolute inset-0 opacity-40"></canvas>
+        
+        <div class="relative z-10 max-w-screen-2xl mx-auto px-8 text-center">
+            <div class="inline-flex items-center gap-x-2 px-4 py-1.5 rounded-3xl bg-white/5 border border-white/10 mb-6">
+                <div class="w-2 h-2 bg-indigo-400 rounded-full animate-pulse"></div>
+                <span class="text-xs font-medium tracking-[1.5px] uppercase">ARTIST PORTFOLIO</span>
+            </div>
+            
+            <h1 class="font-display text-7xl md:text-8xl font-semibold tracking-tighter mb-4">
+                NEBULAE
+            </h1>
+            <p class="text-2xl md:text-3xl text-slate-400 max-w-xl mx-auto mb-3 tracking-tight">
+                Where the universe remembers its secrets.
+            </p>
+            <p class="text-lg text-slate-500 max-w-md mx-auto mb-10">
+                A cinematic sci-fi epic illustrated by <span class="text-white font-medium">Gatikart</span>
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <button onclick="openReader(1)"
+                        class="group px-9 py-4 bg-white text-black font-semibold rounded-3xl flex items-center justify-center gap-x-3 hover:bg-white/90 active:scale-[0.985] transition-all text-lg shadow-xl shadow-black/30">
+                    <span>Explore Illustrated Novel</span>
+                    <i class="fa-solid fa-arrow-right group-active:translate-x-0.5 transition"></i>
+                </button>
+                
+                <a href="https://www.instagram.com/gatikart/" target="_blank"
+                        class="px-8 py-4 border border-white/20 hover:bg-white/5 font-medium rounded-3xl flex items-center gap-x-3 transition-all text-lg">
+                    <i class="fa-brands fa-instagram text-xl text-fuchsia-400"></i>
+                    <span>Follow on Instagram</span>
+                </a>
+            </div>
+            
+            <div class="flex items-center justify-center gap-x-8 mt-12 text-sm">
+                <div class="flex -space-x-2">
+                    <div class="w-7 h-7 rounded-full ring-2 ring-[#0b0b10] overflow-hidden"><img src="https://picsum.photos/id/1005/28/28" alt=""></div>
+                    <div class="w-7 h-7 rounded-full ring-2 ring-[#0b0b10] overflow-hidden"><img src="https://picsum.photos/id/1011/28/28" alt=""></div>
+                    <div class="w-7 h-7 rounded-full ring-2 ring-[#0b0b10] overflow-hidden"><img src="https://picsum.photos/id/201/28/28" alt=""></div>
+                </div>
+                <div class="text-slate-400 text-sm">
+                    Join thousands watching the journey unfold
+                </div>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center text-xs tracking-widest text-slate-500">
+            <div>SCROLL TO EXPLORE ART</div>
+            <i class="fa-solid fa-chevron-down mt-1 animate-bounce"></i>
+        </div>
+    </header>
+
+    <!-- STATS BAR -->
+    <div class="max-w-screen-2xl mx-auto px-8 -mt-6 relative z-20">
+        <div class="glass border border-white/10 rounded-3xl px-8 py-5 flex flex-wrap items-center justify-between gap-y-4 text-sm">
+            <div class="flex items-center gap-x-8">
+                <div>
+                    <div class="text-indigo-400 text-xs tracking-widest">ARTIST</div>
+                    <div class="flex items-center gap-x-1.5 mt-0.5">
+                        <span class="font-semibold text-2xl tracking-tight">Gatikart</span>
+                    </div>
+                </div>
+                <div class="h-8 w-px bg-white/10"></div>
+                <div>
+                    <div class="text-xs text-slate-400 tracking-widest">PROJECT FEEDS</div>
+                    <div class="font-semibold text-2xl">Active <span class="text-sm font-normal text-emerald-400">●</span></div>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-x-3 text-sm">
+                <a href="https://www.instagram.com/gatikart/" target="_blank" class="px-4 py-1.5 bg-white/5 hover:bg-white/10 rounded-2xl flex items-center gap-x-2 transition-colors">
+                    <i class="fa-brands fa-instagram text-fuchsia-400"></i>
+                    <span>@gatikart</span>
+                </a>
+                <div class="px-4 py-1.5 bg-white/5 rounded-2xl flex items-center gap-x-2">
+                    <i class="fa-solid fa-palette text-indigo-400"></i>
+                    <span>Original Concept Art</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FEATURED COMIC -->
+    <section id="featured-section" class="max-w-screen-2xl mx-auto px-8 pt-16 pb-12">
+        <div class="flex items-end justify-between mb-8">
+            <div>
+                <span class="uppercase tracking-[3px] text-xs font-semibold text-indigo-400">FEATURED ARTWORK</span>
+                <h2 class="section-header">NEBULAE PROJECT</h2>
+            </div>
+            <button onclick="openReader(1)" 
+                    class="hidden md:flex items-center gap-x-2 px-6 py-3 text-sm font-semibold border border-white/20 hover:bg-white/5 rounded-3xl transition-all active:scale-[0.985]">
+                <span>VIEW GALLERY MODE</span>
+                <i class="fa-solid fa-chevron-right text-xs"></i>
+            </button>
+        </div>
+
+        <div class="grid md:grid-cols-12 gap-6">
+            <!-- Large Artwork -->
+            <div class="md:col-span-7 relative group">
+                <div class="aspect-[16/10] rounded-3xl overflow-hidden comic-frame border border-white/10">
+                    <img src="https://picsum.photos/id/1015/1400/875" 
+                         alt="Nebulae key art"
+                         class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-700">
+                    
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
+                    
+                    <div class="absolute bottom-0 left-0 right-0 p-8">
+                        <div class="flex items-center gap-x-3 mb-3">
+                            <span class="px-3 py-1 text-xs font-medium bg-white/10 backdrop-blur-md rounded-full">SCI-FI DIGITAL ART</span>
+                            <span class="px-3 py-1 text-xs font-medium bg-white/10 backdrop-blur-md rounded-full">CONCEPT DESIGN</span>
+                        </div>
+                        <div class="text-white text-4xl font-semibold tracking-tighter">Chapter 01 — The Cosmic Horizon</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Info Sidebar -->
+            <div class="md:col-span-5 flex flex-col">
+                <div class="glass border border-white/10 rounded-3xl p-8 flex-1 flex flex-col">
+                    <div class="flex items-center justify-between mb-6">
+                        <div>
+                            <div class="font-medium text-lg">Gatikart</div>
+                            <a href="https://www.instagram.com/gatikart/" target="_blank" class="text-xs text-indigo-400 hover:underline flex items-center gap-x-1 mt-0.5">
+                                <i class="fa-brands fa-instagram"></i> @gatikart
                             </a>
                         </div>
-                    </nav>
-
-                    {/* --- HERO SECTION --- */}
-                    <header class="px-6 py-16 md:py-24 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                        <div class="order-2 md:order-1">
-                            <span class="text-xs font-bold uppercase tracking-widest text-neutral-400 block mb-3">Ilustrador & Artista Visual</span>
-                            <h1 class="text-4xl sm:text-5xl md:text-6xl font-serif-art text-neutral-900 leading-tight mb-6">
-                                Espacios en blanco transformados en <span class="italic text-neutral-600">historias</span>.
-                            </h1>
-                            <p class="text-neutral-600 mb-8 max-w-md leading-relaxed text-sm sm:text-base">
-                                Bienvenido a mi galería personal. Una cuidadosa amalgama de arte digital contemporáneo y texturas orgánicas hechas a mano. Explora mis piezas o solicita una obra personalizada única.
-                            </p>
-                            <div class="flex gap-4">
-                                <a href="#comisiones" class="bg-neutral-900 text-white px-6 py-3.5 rounded-md hover:bg-neutral-800 font-semibold text-sm transition-all shadow-sm tracking-wide">
-                                    Encargar Dibujo
-                                </a>
-                                <a href="#portfolio" class="border border-neutral-300 bg-white/50 px-6 py-3.5 rounded-md hover:bg-white font-semibold text-sm transition-all tracking-wide">
-                                    Ver Portafolio
-                                </a>
+                        <div class="text-right">
+                            <div class="text-emerald-400 text-xs font-medium px-2 py-1 bg-emerald-500/10 rounded-xl">Open for Commissions</div>
+                        </div>
+                    </div>
+                    
+                    <p class="text-slate-300 leading-relaxed flex-1">
+                        An exploration of futuristic spacescapes, detailed character art, and atmospheric concept worldbuilding. This visual collection showcases deep space anomalies, interstellar narrative beats, and cinematic visual design.
+                    </p>
+                    
+                    <div class="pt-6 border-t border-white/10 mt-auto flex items-center justify-between text-sm">
+                        <div class="flex items-center gap-x-4">
+                            <div>
+                                <span class="font-mono text-lg font-semibold">01</span>
+                                <span class="text-slate-400">/ Concept Series</span>
                             </div>
                         </div>
                         
-                        {/* Galería Collage con Toque Editorial y las fotos del artista */}
-                        <div class="order-1 md:order-2 grid grid-cols-2 gap-4 relative">
-                            <div class="absolute -inset-4 bg-neutral-200/40 rounded-3xl -z-10 transform -rotate-1 border border-neutral-300/30"></div>
-                            <div class="overflow-hidden rounded-2xl shadow-md border border-white p-1.5 bg-white transform hover:scale-[1.01] transition-all">
-                                <img src="https://i.postimg.cc/RV3TFwXL/descarga-(2).png" class="rounded-xl h-48 sm:h-64 w-full object-cover" alt="Arte de Gatikart" />
-                            </div>
-                            <div class="overflow-hidden rounded-2xl shadow-md border border-white p-1.5 bg-white transform translate-y-6 hover:scale-[1.01] transition-all">
-                                <img src="https://i.postimg.cc/wvfhxBNs/descarga-(1).png" class="rounded-xl h-48 sm:h-64 w-full object-cover" alt="Arte de Gatikart" />
-                            </div>
-                        </div>
-                    </header>
+                        <button onclick="openReader(1)"
+                                class="md:hidden px-6 py-3 bg-white text-black text-sm font-semibold rounded-3xl flex items-center gap-x-2 active:scale-[0.985]">
+                            <span>LAUNCH VIEW</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-                    {/* --- PORTFOLIO SECTION --- */}
-                    <section id="portfolio" class="bg-white py-20 px-6 border-t border-b border-neutral-200/60">
-                        <div class="max-w-6xl mx-auto">
-                            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
+    <!-- DISCOVER / TRENDING -->
+    <section class="max-w-screen-2xl mx-auto px-8 pb-20">
+        <div class="flex items-center justify-between mb-8">
+            <h3 class="text-3xl font-semibold tracking-tight">More Collections</h3>
+            <a href="https://www.instagram.com/gatikart/" target="_blank" class="text-sm flex items-center gap-x-2 text-indigo-400 hover:text-indigo-300 transition-colors font-medium">
+                SEE INSTAGRAM FEED <i class="fa-solid fa-arrow-right ml-1.5"></i>
+            </a>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-5" id="discover-grid">
+            <!-- Populated by JS -->
+        </div>
+    </section>
+
+    <!-- READER OVERLAY -->
+    <div id="reader-overlay" onclick="if (event.target.id === 'reader-overlay') closeReader()" 
+         class="hidden fixed inset-0 z-[100] bg-black/90 backdrop-blur-xl flex items-center justify-center p-4 md:p-6">
+        
+        <div onclick="event.stopImmediatePropagation()" 
+             class="w-full max-w-[1180px] bg-[#0b0b10] border border-white/10 shadow-2xl rounded-3xl overflow-hidden flex flex-col max-h-[96dvh]">
+            
+            <!-- Reader Header -->
+            <div class="px-6 md:px-8 py-4 border-b border-white/10 flex items-center justify-between bg-[#0b0b10]/95 backdrop-blur-lg z-10">
+                <div class="flex items-center gap-x-4">
+                    <!-- Logo + Title -->
+                    <div class="flex items-center gap-x-3">
+                        <div class="w-8 h-8 rounded-2xl bg-gradient-to-br from-indigo-500 to-fuchsia-500 flex-shrink-0 flex items-center justify-center text-white font-bold text-xs">G</div>
+                        <div>
+                            <div class="font-semibold tracking-tight uppercase">GATIKART SHOWCASE</div>
+                            <div class="text-xs text-slate-400 -mt-0.5">Nebulae Series • Chapter 01</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Progress -->
+                    <div class="hidden md:flex items-center gap-x-3 ml-4 pl-4 border-l border-white/10">
+                        <div class="text-xs font-mono text-slate-400 w-9" id="progress-text">01 / 10</div>
+                        <div class="w-28 h-1.5 bg-white/10 rounded-full overflow-hidden">
+                            <div id="progress-bar" class="h-1.5 bg-gradient-to-r from-indigo-500 to-fuchsia-500 rounded-full transition-all duration-300" style="width: 10%"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex items-center gap-x-2">
+                    <!-- Mode Switcher -->
+                    <div class="flex items-center bg-white/5 p-1 rounded-3xl border border-white/10">
+                        <button onclick="switchReaderMode('vertical')" id="mode-vertical"
+                                class="mode-btn active px-4 py-1.5 text-xs font-medium rounded-[2rem] flex items-center gap-x-1.5">
+                            <i class="fa-solid fa-bars-staggered w-3.5"></i>
+                            <span class="hidden sm:inline text-xs">Vertical</span>
+                        </button>
+                        <button onclick="switchReaderMode('horizontal')" id="mode-horizontal"
+                                class="mode-btn px-4 py-1.5 text-xs font-medium rounded-[2rem] flex items-center gap-x-1.5">
+                            <i class="fa-solid fa-arrows-alt-h w-3.5"></i>
+                            <span class="hidden sm:inline text-xs">Horizontal</span>
+                        </button>
+                        <button onclick="switchReaderMode('cinema')" id="mode-cinema"
+                                class="mode-btn px-4 py-1.5 text-xs font-medium rounded-[2rem] flex items-center gap-x-1.5">
+                            <i class="fa-solid fa-play w-3.5"></i>
+                            <span class="hidden sm:inline text-xs">Cinema</span>
+                        </button>
+                    </div>
+                    
+                    <button onclick="closeReader()" 
+                            class="w-9 h-9 flex items-center justify-center text-xl hover:bg-white/5 rounded-2xl transition-colors">
+                        <i class="fa-solid fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Reader Content -->
+            <div id="reader-content" class="flex-1 overflow-hidden relative bg-black flex flex-col">
+                <!-- Dynamic content injected here by JS -->
+            </div>
+            
+            <!-- Thumbnail Navigator -->
+            <div class="px-6 py-4 border-t border-white/10 bg-[#0b0b10] flex items-center gap-x-3 overflow-x-auto reader-container" id="thumbnail-strip">
+                <!-- Populated dynamically -->
+            </div>
+            
+            <!-- Footer Controls -->
+            <div class="px-6 py-4 border-t border-white/10 flex items-center justify-between bg-[#0b0b10]">
+                <div class="flex items-center gap-x-2">
+                    <button onclick="prevPanel()" 
+                            class="px-5 py-2 flex items-center gap-x-2 text-sm font-medium border border-white/20 hover:bg-white/5 rounded-2xl transition-all active:scale-[0.985]">
+                        <i class="fa-solid fa-chevron-left"></i>
+                        <span class="hidden sm:inline">Prev</span>
+                    </button>
+                    <button onclick="nextPanel()" 
+                            class="px-5 py-2 flex items-center gap-x-2 text-sm font-medium border border-white/20 hover:bg-white/5 rounded-2xl transition-all active:scale-[0.985]">
+                        <span class="hidden sm:inline">Next</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </div>
+                
+                <div class="flex items-center gap-x-4">
+                    <!-- Settings -->
+                    <div class="relative group">
+                        <button onclick="toggleSettings()" class="px-4 py-2 flex items-center gap-x-2 text-sm border border-white/10 hover:bg-white/5 rounded-2xl transition-all">
+                            <i class="fa-solid fa-sliders-h"></i>
+                            <span class="hidden md:inline text-xs font-medium">SETTINGS</span>
+                        </button>
+                        
+                        <!-- Settings Dropdown -->
+                        <div id="settings-panel" class="hidden absolute bottom-full right-0 mb-2 w-64 glass border border-white/10 rounded-3xl p-5 text-sm shadow-2xl z-50">
+                            <div class="space-y-4">
                                 <div>
-                                    <h2 class="text-3xl sm:text-4xl font-serif-art text-neutral-900">Portafolio Curado</h2>
-                                    <p class="text-neutral-500 text-sm mt-2">Haz clic sobre cualquier ilustración para apreciar los detalles del trazo y su concepto.</p>
+                                    <label class="text-xs text-slate-400 block mb-1.5">TEXT SIZE</label>
+                                    <div class="flex items-center gap-x-3">
+                                        <button onclick="adjustTextSize(-1)" class="w-8 h-8 flex items-center justify-center border border-white/20 rounded-2xl hover:bg-white/5">-</button>
+                                        <div class="flex-1 text-center font-mono text-xs" id="text-size-value">100%</div>
+                                        <button onclick="adjustTextSize(1)" class="w-8 h-8 flex items-center justify-center border border-white/20 rounded-2xl hover:bg-white/5">+</button>
+                                    </div>
                                 </div>
                                 
-                                {/* Filtros Reactivos */}
-                                <div class="flex gap-1 bg-neutral-100 p-1.5 rounded-xl text-xs sm:text-sm font-semibold">
-                                    {["Todos", "Digital", "Tradicional"].map((cat) => (
-                                        <button 
-                                            key={cat}
-                                            onClick={() => setFilter(cat)}
-                                            class={`px-4 py-2 rounded-lg transition-all ${filter === cat ? 'bg-white text-neutral-900 shadow-sm' : 'text-neutral-500 hover:text-neutral-900'}`}
-                                        >
-                                            {cat}
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
-
-                            {/* Grid Dinámico de Obras */}
-                            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                                {filteredPortfolio.map((item) => (
-                                    <div 
-                                        key={item.id} 
-                                        class="group cursor-pointer bg-[#faf9f6]/40 p-2.5 rounded-2xl border border-transparent hover:border-neutral-200/70 hover:bg-white transition-all"
-                                        onClick={() => setSelectedImg(item)}
-                                    >
-                                        <div class="overflow-hidden rounded-xl bg-neutral-100 mb-3 aspect-[4/5] relative">
-                                            <img 
-                                                src={item.img} 
-                                                alt={item.title} 
-                                                class="w-full h-full object-cover transition-all duration-500 group-hover:scale-[1.03]"
-                                            />
-                                            <div class="absolute inset-0 bg-neutral-900/10 opacity-0 group-hover:opacity-100 transition-all flex items-center justify-center backdrop-blur-[2px]">
-                                                <span class="bg-white/95 text-xs font-bold tracking-wider uppercase px-4 py-2 rounded-full shadow-md text-neutral-800 transform translate-y-2 group-hover:translate-y-0 transition-all">Expandir Arte</span>
-                                            </div>
-                                        </div>
-                                        <div class="px-1">
-                                            <h3 class="font-bold text-neutral-900 text-base group-hover:text-neutral-600 transition-all">{item.title}</h3>
-                                            <p class="text-[11px] text-neutral-400 font-bold uppercase tracking-widest mt-0.5">{item.category}</p>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </section>
-
-                    {/* --- EL PROCESO / SOBRE MÍ --- */}
-                    <section id="proceso" class="py-20 px-6 max-w-6xl mx-auto border-b border-neutral-200/40">
-                        <div class="text-center max-w-xl mx-auto mb-16">
-                            <span class="text-xs font-bold uppercase tracking-widest text-neutral-400 block mb-2">Metodología de trabajo</span>
-                            <h2 class="text-3xl sm:text-4xl font-serif-art text-neutral-900">¿Cómo transformo tus ideas?</h2>
-                            <p class="text-neutral-500 text-sm mt-3">Un flujo transparente diseñado para involucrarte en cada etapa crítica de la creación de tu dibujo.</p>
-                        </div>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-                            <div class="bg-white p-6 rounded-2xl border border-neutral-200/60 shadow-sm relative">
-                                <span class="absolute top-4 right-6 font-serif-art text-4xl italic text-neutral-200/80 font-bold">01</span>
-                                <div class="w-10 h-10 bg-neutral-100 rounded-xl flex items-center justify-center font-bold text-neutral-800 mb-4 mx-auto">A</div>
-                                <h3 class="font-bold text-lg text-neutral-900 mb-2">Boceto Inicial</h3>
-                                <p class="text-neutral-500 text-sm leading-relaxed">Definimos la composición general, proporciones y referencias de pose sobre líneas guías limpias.</p>
-                            </div>
-                            <div class="bg-white p-6 rounded-2xl border border-neutral-200/60 shadow-sm relative">
-                                <span class="absolute top-4 right-6 font-serif-art text-4xl italic text-neutral-200/80 font-bold">02</span>
-                                <div class="w-10 h-10 bg-neutral-100 rounded-xl flex items-center justify-center font-bold text-neutral-800 mb-4 mx-auto">B</div>
-                                <h3 class="font-bold text-lg text-neutral-900 mb-2">Lineart & Valores</h3>
-                                <p class="text-neutral-500 text-sm leading-relaxed">Se consolida el entintado final refinado o el trazo digital definitivo para asegurar el detalle estructural.</p>
-                            </div>
-                            <div class="bg-white p-6 rounded-2xl border border-neutral-200/60 shadow-sm relative">
-                                <span class="absolute top-4 right-6 font-serif-art text-4xl italic text-neutral-200/80 font-bold">03</span>
-                                <div class="w-10 h-10 bg-neutral-100 rounded-xl flex items-center justify-center font-bold text-neutral-800 mb-4 mx-auto">C</div>
-                                <h3 class="font-bold text-lg text-neutral-900 mb-2">Color & Textura</h3>
-                                <p class="text-neutral-500 text-sm leading-relaxed">Aplicación de paletas personalizadas, tramas detalladas y efectos atmosféricos antes de la entrega en HD.</p>
-                            </div>
-                        </div>
-                    </section>
-
-                    {/* --- SECTION ENCARGOS & COTIZADOR --- */}
-                    <section id="comisiones" class="py-20 px-6 max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-                        
-                        <div class="lg:col-span-5 lg:sticky lg:top-24">
-                            <span class="inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-700 text-[10px] font-bold tracking-widest uppercase px-2.5 py-1 rounded-full border border-emerald-200/60 mb-3">
-                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 pulse-dot"></span>
-                                Cupos Disponibles
-                            </span>
-                            <h2 class="text-3xl sm:text-4xl font-serif-art text-neutral-900 mb-6">Solicita una pieza exclusiva</h2>
-                            <p class="text-neutral-600 mb-6 leading-relaxed text-sm sm:text-base">
-                                Ya sea para un avatar en redes sociales, un fondo detallado o arte conceptual original, puedes simular tu cotización aproximada en el panel interactivo de la derecha.
-                            </p>
-                            
-                            <div class="p-4 bg-neutral-100/60 rounded-xl border border-neutral-200/40 text-xs text-neutral-500 space-y-2">
-                                <p class="font-bold text-neutral-700 uppercase tracking-wider text-[10px]">Términos de servicio rápido:</p>
-                                <p>• Las obras base son estrictamente para <strong>Uso Personal</strong> (redes, regalos, impresiones privadas).</p>
-                                <p>• El tiempo aproximado de entrega oscila entre 7 a 15 días hábiles.</p>
-                            </div>
-                        </div>
-
-                        {/* Cotizador Reactivo Estilizado */}
-                        <div class="lg:col-span-7 bg-white p-6 sm:p-8 rounded-2xl border border-neutral-200/80 shadow-sm relative">
-                            <h3 class="text-lg font-bold text-neutral-900 mb-6 flex items-center gap-2 border-b border-neutral-100 pb-4">
-                                <svg class="w-5 h-5 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
-                                Configurador de Encargo Interactiva
-                            </h3>
-                            
-                            <div class="space-y-6">
-                                {/* Tipo de Formato */}
-                                <div>
-                                    <label class="block text-[11px] font-bold uppercase tracking-wider text-neutral-400 mb-2">Estilo Técnico Dominante</label>
-                                    <select 
-                                        value={commissionType}
-                                        onChange={(e) => setCommissionType(e.target.value)}
-                                        class="w-full bg-neutral-50 border border-neutral-200 rounded-xl p-3 text-sm font-medium focus:outline-none focus:border-neutral-400 transition-all"
-                                    >
-                                        <option value="digital-base">Ilustración Estilo Digital (Base: $35 USD)</option>
-                                        <option value="tradicional-tinta">Tinta Tradicional en Papel (Base: $50 USD)</option>
-                                        <option value="oleo-lienzo">Óreo / Lienzo Físico Especial (Base: $130 USD)</option>
-                                    </select>
-                                </div>
-
-                                {/* Cantidad de Personajes */}
-                                <div>
-                                    <div class="flex justify-between items-center mb-2">
-                                        <label class="block text-[11px] font-bold uppercase tracking-wider text-neutral-400">Cantidad de Sujetos / Elementos clave</label>
-                                        <span class="bg-neutral-900 text-white text-xs font-bold px-2 py-0.5 rounded-md">{characterCount}</span>
-                                    </div>
-                                    <input 
-                                        type="range" min="1" max="4" 
-                                        value={characterCount}
-                                        onChange={(e) => setCharacterCount(parseInt(e.target.value))}
-                                        class="w-full accent-neutral-900 cursor-pointer" 
-                                    />
-                                    <div class="flex justify-between text-[11px] text-neutral-400 font-medium mt-1">
-                                        <span>1 Elemento</span>
-                                        <span>4 Elementos (Máx)</span>
-                                    </div>
-                                </div>
-
-                                {/* Fondo Complejo */}
-                                <div class="flex items-start gap-3 bg-neutral-50 p-4 rounded-xl border border-neutral-200/60 transition-all hover:bg-neutral-100/40">
-                                    <input 
-                                        type="checkbox" 
-                                        id="bg-check"
-                                        checked={includeBackground}
-                                        onChange={(e) => setIncludeBackground(e.target.checked)}
-                                        class="w-4 h-4 accent-neutral-900 rounded mt-0.5 cursor-pointer"
-                                    />
-                                    <label htmlFor="bg-check" class="text-xs sm:text-sm font-medium text-neutral-700 cursor-pointer select-none leading-normal">
-                                        ¿Agregar un entorno complejo o fondo súper detallado? <span class="text-neutral-400 block mt-0.5 text-[11px]">(Añade un +50% extra sobre el costo base del estilo elegido)</span>
+                                <div class="flex items-center justify-between pt-2 border-t border-white/10">
+                                    <div class="text-xs">Auto-advance (Cinema)</div>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" id="auto-advance-toggle" onchange="toggleAutoAdvance()" class="sr-only peer">
+                                        <div class="w-9 h-5 bg-white/10 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[1px] after:left-[1px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-indigo-500"></div>
                                     </label>
                                 </div>
-
-                                {/* Total estimado en vivo */}
-                                <div class="pt-6 border-t border-neutral-200 flex flex-col sm:flex-row justify-between items-center gap-4">
-                                    <div class="text-center sm:text-left">
-                                        <span class="text-[10px] text-neutral-400 block font-bold uppercase tracking-widest">Presupuesto Estimado</span>
-                                        <span class="text-3xl font-serif-art font-semibold text-neutral-900">${calculateTotal()} USD</span>
-                                    </div>
-                                    
-                                    <a 
-                                        href="https://www.instagram.com/gatikart/" 
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        class="w-full sm:w-auto bg-neutral-900 text-white px-6 py-3.5 rounded-xl hover:bg-neutral-800 transition-all font-bold text-xs uppercase tracking-wider text-center shadow-md"
-                                    >
-                                        Enviar Propuesta vía Instagram
-                                    </a>
-                                </div>
                             </div>
                         </div>
-                    </section>
-
-                    {/* --- LIGHTBOX MODAL REFLEXIVO --- */}
-                    {selectedImg && (
-                        <div 
-                            class="fixed inset-0 bg-neutral-950/90 backdrop-blur-sm z-50 flex items-center justify-center p-4 transition-all"
-                            onClick={() => setSelectedImg(null)}
-                        >
-                            <div class="bg-white rounded-2xl max-w-2xl w-full overflow-hidden shadow-2xl relative" onClick={e => e.stopPropagation()}>
-                                <button 
-                                    class="absolute top-4 right-4 bg-white/80 hover:bg-white text-neutral-800 rounded-full p-2 transition-all shadow-md z-10"
-                                    onClick={() => setSelectedImg(null)}
-                                >
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                                </button>
-                                
-                                <div class="bg-neutral-100 flex items-center justify-center max-h-[60vh] overflow-hidden">
-                                    <img src={selectedImg.img} alt={selectedImg.title} class="w-full h-full object-contain" />
-                                </div>
-                                
-                                <div class="p-6 bg-white">
-                                    <span class="text-[10px] font-bold uppercase tracking-widest text-neutral-400 bg-neutral-100 px-2.5 py-1 rounded-md">{selectedImg.category}</span>
-                                    <h3 class="text-2xl font-serif-art text-neutral-900 mt-2">{selectedImg.title}</h3>
-                                    <p class="text-neutral-600 text-sm mt-2 leading-relaxed">{selectedImg.desc}</p>
-                                    
-                                    <div class="mt-6 pt-4 border-t border-neutral-100 flex justify-end">
-                                        <a 
-                                            href="https://www.instagram.com/gatikart/" 
-                                            target="_blank" 
-                                            class="text-xs font-bold uppercase tracking-wider text-neutral-900 hover:text-neutral-600 flex items-center gap-1.5 transition-all"
-                                        >
-                                            Consultar Disponibilidad de Pieza <span>&rarr;</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    )}
-
-                    {/* --- FOOTER --- */}
-                    <footer class="bg-neutral-950 text-neutral-400 py-12 px-6 mt-auto border-t border-neutral-900">
-                        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-                            <p class="text-xl font-serif-art italic text-white">gatikart.</p>
-                            <div class="flex gap-6 text-xs uppercase tracking-wider font-semibold">
-                                <a href="https://www.instagram.com/gatikart/" target="_blank" rel="noreferrer" class="hover:text-white transition-all">Instagram</a>
-                                <a href="#portfolio" class="hover:text-white transition-all">Portafolio</a>
-                                <a href="#comisiones" class="hover:text-white transition-all">Encargos</a>
-                            </div>
-                            <p class="text-[11px] text-neutral-600">&copy; {new Date().getFullYear()} Gatikart. Diseñado con visión artística.</p>
-                        </div>
-                    </footer>
-
+                    </div>
+                    
+                    <button onclick="bookmarkCurrent()" class="flex items-center justify-center w-9 h-9 hover:bg-white/5 border border-white/10 rounded-2xl transition-all" id="bookmark-btn">
+                        <i class="fa-regular fa-bookmark"></i>
+                    </button>
+                    
+                    <a href="https://www.instagram.com/gatikart/" target="_blank" class="px-5 py-2 text-xs font-medium border border-white/10 hover:bg-white/5 rounded-2xl flex items-center gap-x-2 transition-all">
+                        <i class="fa-solid fa-heart text-fuchsia-400"></i>
+                        <span>Support Artist</span>
+                    </a>
                 </div>
-            );
-        }
+            </div>
+        </div>
+    </div>
 
-        // Montaje de la aplicación React
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
+
+    <script>
+        // Tailwind script
+        function initTailwind() {
+            document.documentElement.style.setProperty('--accent', '#6366f1');
+            
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        fontFamily: {
+                            'display': ['Space Grotesk', 'Inter', 'system-ui', 'sans-serif']
+                        }
+                    }
+                }
+            };
+        }
+        
+        // Hero canvas particles (lightweight nebula effect)
+        function initHeroCanvas() {
+            const canvas = document.getElementById('hero-canvas');
+            const ctx = canvas.getContext('2d', { alpha: true });
+            
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+            
+            const particles = [];
+            const particleCount = 65;
+            
+            for (let i = 0; i < particleCount; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height * 0.7,
+                    size: Math.random() * 1.8 + 0.6,
+                    speed: Math.random() * 0.12 + 0.04,
+                    opacity: Math.random() * 0.5 + 0.25,
+                    drift: Math.random() * 0.6 - 0.3
+                });
+            }
+            
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                particles.forEach(p => {
+                    ctx.fillStyle = `rgba(163, 163, 172, ${p.opacity})`;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    ctx.fill();
+                    
+                    // Slow drift
+                    p.y += p.speed;
+                    p.x += p.drift * 0.3;
+                    
+                    // Reset when off screen
+                    if (p.y > canvas.height * 0.95) {
+                        p.y = Math.random() * canvas.height * 0.3;
+                        p.x = Math.random() * canvas.width;
+                    }
+                    if (p.x < 0) p.x = canvas.width;
+                    if (p.x > canvas.width) p.x = 0;
+                });
+                
+                requestAnimationFrame(animate);
+            }
+            
+            animate();
+        }
+        
+        // Discover grid data customized for Gatikart portfolio titles
+        const discoverComics = [
+            {
+                id: 1,
+                title: "NEBULAE PROJECT",
+                author: "Gatikart",
+                cover: "https://picsum.photos/id/1015/400/560",
+                rating: 9.9,
+                readers: "Featured",
+                tags: ["Sci-Fi", "Digital Art"],
+                isFeatured: true
+            },
+            {
+                id: 2,
+                title: "Cyberpunk Horizons",
+                author: "Gatikart",
+                cover: "https://picsum.photos/id/160/400/560",
+                rating: 9.6,
+                readers: "Concept",
+                tags: ["Mecha", "Neon"]
+            },
+            {
+                id: 3,
+                title: "Eldritch Echoes",
+                author: "Gatikart",
+                cover: "https://picsum.photos/id/201/400/560",
+                rating: 9.5,
+                readers: "Illustration",
+                tags: ["Dark Fantasy"]
+            },
+            {
+                id: 4,
+                title: "Starlight Protocol",
+                author: "Gatikart",
+                cover: "https://picsum.photos/id/251/400/560",
+                rating: 9.4,
+                readers: "Sketchbook",
+                tags: ["Spaceships"]
+            },
+            {
+                id: 5,
+                title: "Fractured Realities",
+                author: "Gatikart",
+                cover: "https://picsum.photos/id/29/400/560",
+                rating: 9.7,
+                readers: "Painting",
+                tags: ["Surrealism"]
+            },
+            {
+                id: 6,
+                title: "Void Exploration",
+                author: "Gatikart",
+                cover: "https://picsum.photos/id/30/400/560",
+                rating: 9.8,
+                readers: "Recent",
+                tags: ["Sci-Fi"]
+            }
+        ];
+        
+        function renderDiscoverGrid() {
+            const container = document.getElementById('discover-grid');
+            container.innerHTML = '';
+            
+            discoverComics.forEach(comic => {
+                const card = document.createElement('div');
+                card.className = `group relative rounded-3xl overflow-hidden border border-white/10 bg-[#121218] cursor-pointer modern-shadow hover:border-white/20 transition-all active:scale-[0.985]`;
+                
+                card.innerHTML = `
+                    <div class="aspect-[4/3.1] relative overflow-hidden">
+                        <img src="${comic.cover}" alt="${comic.title} cover" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        
+                        <div class="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/90 to-transparent"></div>
+                        
+                        ${comic.isFeatured ? `
+                            <div class="absolute top-3 left-3 px-3 py-0.5 text-[10px] font-semibold tracking-wider bg-white/90 text-black rounded-full flex items-center">
+                                PRIMARY
+                            </div>
+                        ` : ''}
+                        
+                        <div class="absolute bottom-3 left-3 right-3">
+                            <div class="flex justify-between items-end">
+                                <div>
+                                    <div class="font-semibold text-lg tracking-tight">${comic.title}</div>
+                                    <div class="text-xs text-slate-300">${comic.author}</div>
+                                </div>
+                                
+                                <div class="text-right">
+                                    <div class="flex items-center justify-end gap-x-px text-indigo-400 text-sm">
+                                        <span class="font-mono font-semibold">${comic.rating}</span>
+                                    </div>
+                                    <div class="text-[10px] text-slate-400">${comic.readers}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="px-4 py-3 flex items-center justify-between text-xs">
+                        <div class="flex gap-x-1.5">
+                            ${comic.tags.map(tag => `<span class="px-2.5 py-px bg-white/5 rounded-xl text-[10px]">${tag}</span>`).join('')}
+                        </div>
+                        
+                        <button onclick="event.stopImmediatePropagation(); ${comic.isFeatured ? 'openReader(1)' : 'window.open(\'https://www.instagram.com/gatikart/\', \'_blank\')'}" 
+                                class="text-xs px-4 py-1 rounded-2xl border border-white/20 hover:bg-white/5 transition-colors font-medium">
+                            ${comic.isFeatured ? 'VIEW' : 'LINK'}
+                        </button>
+                    </div>
+                `;
+                
+                if (comic.isFeatured) {
+                    card.onclick = () => openReader(1);
+                } else {
+                    card.onclick = () => window.open('https://www.instagram.com/gatikart/', '_blank');
+                }
+                
+                container.appendChild(card);
+            });
+        }
+        
+        // Comic panel data
+        const panelsData = [
+            {
+                num: 1,
+                src: "https://picsum.photos/id/1015/900/1200",
+                dialogue: "Captain's Log — Cycle 47. We have arrived at the coordinates. The Nebula Cluster is... alive. The instruments can't explain it.",
+                speaker: "LIRA KANE"
+            },
+            {
+                num: 2,
+                src: "https://picsum.photos/id/160/900/1200",
+                dialogue: "This signal... it isn't random. It's repeating. Almost like it's... waiting for us.",
+                speaker: "LIRA KANE"
+            },
+            {
+                num: 3,
+                src: "https://picsum.photos/id/201/900/1200",
+                dialogue: "The void is breathing. I can feel it in my bones. Whatever is out there has been waiting for a very long time.",
+                speaker: "DR. ELIAN VOSS"
+            },
+            {
+                num: 4,
+                src: "https://picsum.photos/id/251/900/1200",
+                dialogue: "Captain, the hull is registering micro-fractures. But there's no debris. Something is... pulling at the ship.",
+                speaker: "ENGINEER RAY"
+            },
+            {
+                num: 5,
+                src: "https://picsum.photos/id/29/900/1200",
+                dialogue: "We're not explorers anymore. We're guests. And I don't think the host is friendly.",
+                speaker: "LIRA KANE"
+            },
+            {
+                num: 6,
+                src: "https://picsum.photos/id/30/900/1200",
+                dialogue: "The stars are wrong. They've rearranged themselves. This place remembers us... from before we existed.",
+                speaker: "DR. ELIAN VOSS"
+            },
+            {
+                num: 7,
+                src: "https://picsum.photos/id/1033/900/1200",
+                dialogue: "I saw something move inside the nebula. Not a ship. Not a creature. Something older than light itself.",
+                speaker: "CREW MEMBER"
+            },
+            {
+                num: 8,
+                src: "https://picsum.photos/id/1040/900/1200",
+                dialogue: "We came here looking for answers. I think we just found the question that ends everything.",
+                speaker: "LIRA KANE"
+            },
+            {
+                num: 9,
+                src: "https://picsum.photos/id/106/900/1200",
+                dialogue: "The signal is growing stronger. It's no longer calling... It's answering.",
+                speaker: "DR. ELIAN VOSS"
+            },
+            {
+                num: 10,
+                src: "https://picsum.photos/id/1016/900/1200",
+                dialogue: "Whatever happens next — we go together. That's the only rule that still matters out here.",
+                speaker: "LIRA KANE"
+            }
+        ];
+        
+        let currentMode = 'vertical';
+        let currentPanelIndex = 0;
+        let autoAdvanceInterval = null;
+        let currentTextScale = 100;
+        
+        function openReader(chapter = 1) {
+            const overlay = document.getElementById('reader-overlay');
+            overlay.classList.remove('hidden');
+            overlay.classList.add('flex');
+            
+            // Reset state
+            currentPanelIndex = 0;
+            document.getElementById('bookmark-btn').innerHTML = `<i class="fa-regular fa-bookmark"></i>`;
+            
+            // Load saved progress
+            const saved = localStorage.getItem('gatikart_nebulae_progress');
+            if (saved) {
+                currentPanelIndex = parseInt(saved);
+            }
+            
+            // Default to vertical
+            switchReaderMode('vertical');
+            
+            // Update progress UI
+            updateProgressUI();
+            
+            // Keyboard support
+            document.addEventListener('keydown', handleReaderKeyboard, { once: true });
+        }
+        
+        function closeReader() {
+            const overlay = document.getElementById('reader-overlay');
+            overlay.classList.remove('flex');
+            overlay.classList.add('hidden');
+            
+            if (autoAdvanceInterval) {
+                clearInterval(autoAdvanceInterval);
+                autoAdvanceInterval = null;
+            }
+            
+            localStorage.setItem('gatikart_nebulae_progress', currentPanelIndex);
+        }
+        
+        function switchReaderMode(mode) {
+            currentMode = mode;
+            
+            document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active', 'bg-indigo-500', 'text-white'));
+            
+            let activeBtn;
+            if (mode === 'vertical') activeBtn = document.getElementById('mode-vertical');
+            else if (mode === 'horizontal') activeBtn = document.getElementById('mode-horizontal');
+            else if (mode === 'cinema') activeBtn = document.getElementById('mode-cinema');
+            
+            if (activeBtn) activeBtn.classList.add('active', 'bg-indigo-500', 'text-white');
+            
+            renderReaderContent(mode);
+        }
+        
+        function renderReaderContent(mode) {
+            const container = document.getElementById('reader-content');
+            container.innerHTML = '';
+            container.className = `flex-1 overflow-hidden relative bg-black flex flex-col`;
+            
+            container.onscroll = null;
+            
+            if (mode === 'vertical') {
+                renderVerticalMode(container);
+            } else if (mode === 'horizontal') {
+                renderHorizontalMode(container);
+            } else if (mode === 'cinema') {
+                renderCinemaMode(container);
+            }
+            
+            renderThumbnailStrip();
+            
+            setTimeout(() => {
+                scrollToPanel(currentPanelIndex);
+            }, 80);
+        }
+        
+        function renderVerticalMode(container) {
+            container.style.overflowY = 'auto';
+            container.style.scrollBehavior = 'smooth';
+            
+            const wrapper = document.createElement('div');
+            wrapper.className = `max-w-[820px] mx-auto px-5 md:px-8 py-8 space-y-9`;
+            
+            panelsData.forEach((panel, index) => {
+                const panelEl = document.createElement('div');
+                panelEl.className = `comic-panel group bg-[#111114] rounded-3xl overflow-hidden border border-white/10`;
+                panelEl.dataset.panelIndex = index;
+                
+                panelEl.innerHTML = `
+                    <div class="flex items-center justify-between px-5 pt-4 pb-3 bg-black/40">
+                        <div class="flex items-center gap-x-3">
+                            <div class="panel-number w-7 h-7 flex items-center justify-center rounded-2xl bg-white/5 text-xs font-mono font-semibold text-indigo-300">${String(panel.num).padStart(2, '0')}</div>
+                            <div class="text-xs uppercase tracking-[1.5px] text-slate-400 font-medium">${panel.speaker}</div>
+                        </div>
+                        <button onclick="zoomPanel(${index}, event)" class="text-xs px-3 py-1 rounded-xl border border-white/10 hover:bg-white/5 flex items-center gap-x-1 text-slate-400 hover:text-white">
+                            <i class="fa-solid fa-search-plus text-xs"></i>
+                            <span class="text-[10px]">ZOOM</span>
+                        </button>
+                    </div>
+                    
+                    <div class="relative">
+                        <img src="${panel.src}" alt="Panel ${panel.num}" 
+                             class="w-full object-cover aspect-[4/3.1] md:aspect-auto md:h-[620px]"
+                             loading="lazy">
+                        
+                        <div class="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/60 to-transparent pointer-events-none"></div>
+                    </div>
+                    
+                    <div class="px-6 py-5">
+                        <div class="dialogue text-[15.2px] leading-relaxed">
+                            ${panel.dialogue}
+                        </div>
+                    </div>
+                `;
+                
+                panelEl.onclick = (e) => {
+                    if (!e.target.closest('button')) {
+                        currentPanelIndex = index;
+                        updateProgressUI();
+                        panelEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                };
+                
+                wrapper.appendChild(panelEl);
+            });
+            
+            container.appendChild(wrapper);
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const idx = parseInt(entry.target.dataset.panelIndex);
+                        if (idx > currentPanelIndex) {
+                            currentPanelIndex = idx;
+                            updateProgressUI();
+                            localStorage.setItem('gatikart_nebulae_progress', currentPanelIndex);
+                        }
+                    }
+                });
+            }, { threshold: 0.65 });
+            
+            wrapper.querySelectorAll('.comic-panel').forEach(el => observer.observe(el));
+        }
+        
+        function renderHorizontalMode(container) {
+            container.style.overflow = 'hidden';
+            
+            const scroller = document.createElement('div');
+            scroller.className = `flex h-full overflow-x-auto scroll-snap-x reader-container snap-x snap-mandatory`;
+            scroller.style.scrollBehavior = 'smooth';
+            
+            panelsData.forEach((panel, index) => {
+                const slide = document.createElement('div');
+                slide.className = `flex-shrink-0 w-full h-full flex items-center justify-center px-4 md:px-8 snap-start`;
+                slide.dataset.panelIndex = index;
+                
+                slide.innerHTML = `
+                    <div class="max-w-[880px] w-full comic-panel bg-[#111114] rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
+                        <div class="px-6 pt-5 pb-3 flex items-center justify-between bg-black/60">
+                            <div class="flex items-center gap-x-3">
+                                <div class="panel-number text-3xl font-mono font-semibold text-indigo-300/90">${String(panel.num).padStart(2, '0')}</div>
+                                <div>
+                                    <div class="uppercase tracking-[2px] text-xs text-slate-400">${panel.speaker}</div>
+                                </div>
+                            </div>
+                            
+                            <button onclick="zoomPanel(${index}, event)" class="px-4 py-1 text-xs rounded-2xl border border-white/10 flex items-center gap-x-2 hover:bg-white/5">
+                                <i class="fa-solid fa-search-plus"></i>
+                                <span>Focus</span>
+                            </button>
+                        </div>
+                        
+                        <img src="${panel.src}" alt="Panel ${panel.num}" class="w-full object-cover max-h-[62vh] md:max-h-[66vh]">
+                        
+                        <div class="px-7 py-6 bg-[#0b0b10]">
+                            <div class="dialogue text-[15.5px] max-w-prose">
+                                ${panel.dialogue}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                slide.onclick = (e) => {
+                    if (!e.target.closest('button')) {
+                        currentPanelIndex = index;
+                        updateProgressUI();
+                    }
+                };
+                
+                scroller.appendChild(slide);
+            });
+            
+            container.appendChild(scroller);
+            
+            scroller.onscroll = () => {
+                const slides = scroller.querySelectorAll('[data-panel-index]');
+                let closest = currentPanelIndex;
+                let minDistance = Infinity;
+                
+                slides.forEach(slide => {
+                    const rect = slide.getBoundingClientRect();
+                    const distance = Math.abs(rect.left - container.getBoundingClientRect().left);
+                    if (distance < minDistance) {
+                        minDistance = distance;
+                        closest = parseInt(slide.dataset.panelIndex);
+                    }
+                });
+                
+                if (closest !== currentPanelIndex) {
+                    currentPanelIndex = closest;
+                    updateProgressUI();
+                    renderThumbnailStrip();
+                }
+            };
+        }
+        
+        function renderCinemaMode(container) {
+            container.style.overflow = 'hidden';
+            container.style.background = '#050507';
+            
+            const cinemaWrapper = document.createElement('div');
+            cinemaWrapper.className = `flex-1 flex items-center justify-center relative px-4`;
+            
+            function renderCurrentCinemaPanel() {
+                cinemaWrapper.innerHTML = '';
+                const panel = panelsData[currentPanelIndex];
+                
+                const panelDiv = document.createElement('div');
+                panelDiv.className = `max-w-[920px] w-full comic-panel bg-black rounded-3xl overflow-hidden border border-white/10 shadow-[0_0_80px_rgb(0,0,0)]`;
+                
+                panelDiv.innerHTML = `
+                    <div class="relative">
+                        <img src="${panel.src}" alt="Panel ${panel.num}" 
+                             class="w-full max-h-[72vh] object-contain cursor-pointer" 
+                             onclick="nextPanel()">
+                        
+                        <div class="absolute top-5 left-5 px-4 py-1 bg-black/70 text-xs font-mono tracking-widest rounded-2xl flex items-center gap-x-2">
+                            <span class="text-indigo-300">${String(panel.num).padStart(2, '0')}</span>
+                            <span class="text-white/40">/ ${panelsData.length}</span>
+                        </div>
+                        
+                        <div class="absolute top-5 right-5 px-4 py-1 bg-black/70 text-xs rounded-2xl flex items-center gap-x-1.5 cursor-pointer" onclick="event.stopImmediatePropagation(); zoomPanel(${currentPanelIndex}, event)">
+                            <i class="fa-solid fa-search-plus"></i>
+                            <span class="text-xs hidden md:inline">ENLARGE</span>
+                        </div>
+                    </div>
+                    
+                    <div class="px-8 py-7 bg-[#0b0b10]">
+                        <div class="uppercase text-xs tracking-[2.5px] text-indigo-300 mb-2">${panel.speaker}</div>
+                        <div class="dialogue text-lg leading-relaxed max-w-3xl">
+                            ${panel.dialogue}
+                        </div>
+                    </div>
+                `;
+                
+                cinemaWrapper.appendChild(panelDiv);
+            }
+            
+            renderCurrentCinemaPanel();
+            container.appendChild(cinemaWrapper);
+        }
+        
+        function renderThumbnailStrip() {
+            const strip = document.getElementById('thumbnail-strip');
+            strip.innerHTML = '';
+            
+            panelsData.forEach((panel, index) => {
+                const thumb = document.createElement('div');
+                thumb.className = `mini-thumb flex-shrink-0 w-14 h-14 md:w-[62px] md:h-[62px] rounded-2xl overflow-hidden cursor-pointer border-2 ${index === currentPanelIndex ? 'active border-indigo-500' : 'border-transparent'}`;
+                
+                thumb.innerHTML = `
+                    <img src="${panel.src}" alt="Panel ${panel.num} thumbnail" class="w-full h-full object-cover">
+                `;
+                
+                thumb.onclick = () => {
+                    currentPanelIndex = index;
+                    updateProgressUI();
+                    renderThumbnailStrip();
+                    
+                    if (currentMode === 'vertical') {
+                        const container = document.getElementById('reader-content');
+                        const targetPanel = container.querySelector(`[data-panel-index="${index}"]`);
+                        if (targetPanel) targetPanel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    } else if (currentMode === 'horizontal') {
+                        const scroller = document.getElementById('reader-content').querySelector('.flex');
+                        if (scroller) {
+                            const targetSlide = scroller.children[index];
+                            targetSlide.scrollIntoView({ behavior: 'smooth', inline: 'start' });
+                        }
+                    } else if (currentMode === 'cinema') {
+                        renderReaderContent('cinema');
+                    }
+                };
+                
+                strip.appendChild(thumb);
+            });
+        }
+        
+        function scrollToPanel(index) {
+            const container = document.getElementById('reader-content');
+            
+            if (currentMode === 'vertical') {
+                const target = container.querySelector(`[data-panel-index="${index}"]`);
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } else if (currentMode === 'horizontal') {
+                const scroller = container.querySelector('.flex');
+                if (scroller && scroller.children[index]) {
+                    scroller.children[index].scrollIntoView({ behavior: 'smooth', inline: 'start' });
+                }
+            } else if (currentMode === 'cinema') {
+                renderReaderContent('cinema');
+            }
+        }
+        
+        function updateProgressUI() {
+            const progressBar = document.getElementById('progress-bar');
+            const progressText = document.getElementById('progress-text');
+            
+            const percent = ((currentPanelIndex + 1) / panelsData.length) * 100;
+            
+            if (progressBar) progressBar.style.width = `${percent}%`;
+            if (progressText) progressText.textContent = `${String(currentPanelIndex + 1).padStart(2, '0')} / ${panelsData.length}`;
+            
+            renderThumbnailStrip();
+            localStorage.setItem('gatikart_nebulae_progress', currentPanelIndex);
+        }
+        
+        function nextPanel() {
+            if (currentPanelIndex < panelsData.length - 1) {
+                currentPanelIndex++;
+                updateProgressUI();
+                if (currentMode === 'cinema') renderReaderContent('cinema');
+                else scrollToPanel(currentPanelIndex);
+            } else {
+                showToast("End of visual showcase. Check Instagram for more updates!", 'success');
+            }
+        }
+        
+        function prevPanel() {
+            if (currentPanelIndex > 0) {
+                currentPanelIndex--;
+                updateProgressUI();
+                if (currentMode === 'cinema') renderReaderContent('cinema');
+                else scrollToPanel(currentPanelIndex);
+            }
+        }
+        
+        function zoomPanel(index, e) {
+            e.stopImmediatePropagation();
+            const panel = panelsData[index];
+            const zoomOverlay = document.createElement('div');
+            zoomOverlay.className = `fixed inset-0 z-[200] bg-black/95 flex items-center justify-center p-4`;
+            
+            zoomOverlay.innerHTML = `
+                <div class="max-w-[1100px] w-full">
+                    <div class="flex justify-between items-center mb-3 px-1">
+                        <div class="font-mono text-sm text-white/60">PANEL ${String(panel.num).padStart(2, '0')} — FOCUS MODE</div>
+                        <button class="text-3xl text-white/70 hover:text-white transition-colors">&times;</button>
+                    </div>
+                    <div class="rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
+                        <img src="${panel.src}" alt="Panel ${panel.num} enlarged" class="w-full max-h-[82vh] object-contain bg-black">
+                    </div>
+                </div>
+            `;
+            
+            zoomOverlay.onclick = () => zoomOverlay.remove();
+            zoomOverlay.querySelector('button').onclick = () => zoomOverlay.remove();
+            document.body.appendChild(zoomOverlay);
+        }
+        
+        function handleReaderKeyboard(e) {
+            const overlay = document.getElementById('reader-overlay');
+            if (overlay.classList.contains('hidden')) return;
+            
+            if (e.key === 'Escape') closeReader();
+            else if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); nextPanel(); }
+            else if (e.key === 'ArrowLeft') prevPanel();
+        }
+        
+        function toggleSettings() {
+            const panel = document.getElementById('settings-panel');
+            panel.classList.toggle('hidden');
+        }
+        
+        function adjustTextSize(delta) {
+            currentTextScale = Math.max(85, Math.min(130, currentTextScale + delta));
+            document.getElementById('text-size-value').textContent = currentTextScale + '%';
+            document.querySelectorAll('#reader-content .dialogue').forEach(el => {
+                el.style.fontSize = (currentTextScale / 100 * 15.5) + 'px';
+            });
+        }
+        
+        function toggleAutoAdvance() {
+            const checkbox = document.getElementById('auto-advance-toggle');
+            if (checkbox.checked) {
+                if (autoAdvanceInterval) clearInterval(autoAdvanceInterval);
+                autoAdvanceInterval = setInterval(() => {
+                    if (currentMode === 'cinema' && currentPanelIndex < panelsData.length - 1) nextPanel();
+                    else { checkbox.checked = false; clearInterval(autoAdvanceInterval); }
+                }, 3800);
+            } else if (autoAdvanceInterval) {
+                clearInterval(autoAdvanceInterval);
+                autoAdvanceInterval = null;
+            }
+        }
+        
+        function bookmarkCurrent() {
+            const btn = document.getElementById('bookmark-btn');
+            const icon = btn.querySelector('i');
+            if (icon.classList.contains('fa-regular')) {
+                icon.classList.remove('fa-regular');
+                icon.classList.add('fa-solid', 'text-fuchsia-400');
+                showToast('Bookmarked position.');
+                localStorage.setItem('gatikart_bookmark', currentPanelIndex);
+            } else {
+                icon.classList.add('fa-regular');
+                icon.classList.remove('fa-solid', 'text-fuchsia-400');
+                localStorage.removeItem('gatikart_bookmark');
+            }
+        }
+        
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = `toast fixed bottom-6 right-6 z-[300] px-6 py-3.5 rounded-3xl flex items-center gap-x-3 text-sm shadow-2xl max-w-xs bg-zinc-800 border border-white/10`;
+            toast.innerHTML = `<span>${message}</span>`;
+            document.body.appendChild(toast);
+            setTimeout(() => { toast.remove(); }, 2800);
+        }
+        
+        function toggleMobileMenu() {
+            const menu = document.createElement('div');
+            menu.className = `fixed inset-0 z-[90] bg-black/90 md:hidden`;
+            menu.innerHTML = `
+                <div class="glass border-b border-white/10 p-6">
+                    <div class="flex justify-between items-center mb-8">
+                        <span class="font-display text-2xl font-semibold">GATIKART</span>
+                        <button class="text-3xl">&times;</button>
+                    </div>
+                    <div class="flex flex-col text-xl gap-y-4 font-medium">
+                        <a href="#" class="py-2">Discover</a>
+                        <a href="#" class="py-2">Gallery</a>
+                        <a href="https://www.instagram.com/gatikart/" target="_blank" class="py-2 text-indigo-400">Instagram</a>
+                    </div>
+                </div>
+            `;
+            menu.onclick = () => menu.remove();
+            document.body.appendChild(menu);
+        }
+        
+        function showProfileMenu() {
+            // Placeholder interaction
+        }
+        
+        function initSearch() {
+            const input = document.getElementById('search-input');
+            input.addEventListener('input', () => {
+                const term = input.value.toLowerCase().trim();
+                document.querySelectorAll('#discover-grid > div').forEach(card => {
+                    card.style.display = card.textContent.toLowerCase().includes(term) ? '' : 'none';
+                });
+            });
+        }
+        
+        function initializeApp() {
+            initTailwind();
+            initHeroCanvas();
+            renderDiscoverGrid();
+            initSearch();
+        }
+        
+        window.onload = initializeApp;
     </script>
 </body>
 </html>
