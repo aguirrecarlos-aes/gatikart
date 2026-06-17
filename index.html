@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GATIKART • NEBULAE • Chapter 01</title>
+    <title>GATIKART • NEBULAE • Capítulo 01</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;600&display=swap');
         
         :root {
             --accent: #6366f1;
@@ -178,11 +178,9 @@
     </style>
 </head>
 <body class="bg-[#0b0b10] text-slate-200 overflow-x-hidden">
-    <!-- NAVBAR -->
     <nav class="fixed top-0 left-0 right-0 z-50 glass border-b border-white/10">
         <div class="max-w-screen-2xl mx-auto">
             <div class="px-8 py-4 flex items-center justify-between">
-                <!-- Logo -->
                 <div class="flex items-center gap-x-3">
                     <div class="w-9 h-9 rounded-2xl bg-gradient-to-br from-indigo-500 via-violet-500 to-fuchsia-500 flex items-center justify-center shadow-lg shadow-indigo-500/30">
                         <span class="text-white font-black text-2xl tracking-tighter">G</span>
@@ -192,41 +190,36 @@
                     </div>
                 </div>
 
-                <!-- Desktop Nav -->
                 <div class="hidden md:flex items-center gap-x-9 text-sm font-medium">
-                    <a href="#" class="hover:text-white transition-colors nav-active">Discover</a>
-                    <a href="#" class="hover:text-white transition-colors">Gallery</a>
-                    <a href="#" class="hover:text-white transition-colors">Commissions</a>
+                    <a href="#" class="hover:text-white transition-colors nav-active">Descubrir</a>
+                    <a href="#obras-principales" class="hover:text-white transition-colors">Obras Destacadas</a>
+                    <a href="#featured-section" class="hover:text-white transition-colors">Galería</a>
                     <a href="https://www.instagram.com/gatikart/" target="_blank" class="hover:text-white transition-colors flex items-center gap-x-1.5 text-indigo-400">
                         <i class="fa-brands fa-instagram text-base"></i> Instagram
                     </a>
                 </div>
 
-                <!-- Search + Actions -->
                 <div class="flex items-center gap-x-3">
-                    <!-- Search -->
                     <div class="relative hidden md:block w-72">
                         <input 
                             type="text" 
                             id="search-input"
-                            placeholder="Search art, projects..." 
+                            placeholder="Buscar arte, proyectos..." 
                             class="w-full bg-white/5 border border-white/10 focus:border-indigo-500/50 transition-colors text-sm pl-10 py-2.5 rounded-3xl outline-none placeholder:text-slate-500">
                         <i class="fa-solid fa-search absolute left-4 top-3.5 text-slate-500"></i>
                     </div>
 
-                    <!-- Profile -->
                     <div class="flex items-center gap-x-2 pl-3 border-l border-white/10">
                         <div class="flex items-center gap-x-2 cursor-pointer" onclick="showProfileMenu()">
                             <div class="w-8 h-8 rounded-2xl overflow-hidden ring-2 ring-white/10">
-                                <img src="https://picsum.photos/id/1005/32/32" alt="Your avatar" class="w-full h-full object-cover">
+                                <img src="https://picsum.photos/id/1005/32/32" alt="Avatar" class="w-full h-full object-cover">
                             </div>
                             <div class="hidden md:block">
-                                <div class="text-sm font-medium">Guest</div>
+                                <div class="text-sm font-medium">Invitado</div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Mobile Menu -->
                     <button onclick="toggleMobileMenu()" class="md:hidden w-10 h-10 flex items-center justify-center text-xl">
                         <i class="fa-solid fa-bars"></i>
                     </button>
@@ -235,40 +228,38 @@
         </div>
     </nav>
 
-    <!-- HERO -->
     <header class="pt-20 relative min-h-[100dvh] flex items-center justify-center overflow-hidden">
         <div class="absolute inset-0 nebula-bg"></div>
         
-        <!-- Subtle animated stars -->
         <canvas id="hero-canvas" class="absolute inset-0 opacity-40"></canvas>
         
         <div class="relative z-10 max-w-screen-2xl mx-auto px-8 text-center">
             <div class="inline-flex items-center gap-x-2 px-4 py-1.5 rounded-3xl bg-white/5 border border-white/10 mb-6">
                 <div class="w-2 h-2 bg-indigo-400 rounded-full animate-pulse"></div>
-                <span class="text-xs font-medium tracking-[1.5px] uppercase">ARTIST PORTFOLIO</span>
+                <span class="text-xs font-medium tracking-[1.5px] uppercase">PORTAFOLIO DE ARTISTA</span>
             </div>
             
             <h1 class="font-display text-7xl md:text-8xl font-semibold tracking-tighter mb-4">
                 NEBULAE
             </h1>
             <p class="text-2xl md:text-3xl text-slate-400 max-w-xl mx-auto mb-3 tracking-tight">
-                Where the universe remembers its secrets.
+                Donde el universo recuerda sus secretos.
             </p>
             <p class="text-lg text-slate-500 max-w-md mx-auto mb-10">
-                A cinematic sci-fi epic illustrated by <span class="text-white font-medium">Gatikart</span>
+                Una epopeya de ciencia ficción cinematográfica ilustrada por <span class="text-white font-medium">Gatikart</span>
             </p>
 
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <button onclick="openReader(1)"
                         class="group px-9 py-4 bg-white text-black font-semibold rounded-3xl flex items-center justify-center gap-x-3 hover:bg-white/90 active:scale-[0.985] transition-all text-lg shadow-xl shadow-black/30">
-                    <span>Explore Illustrated Novel</span>
+                    <span>Explorar Novela Ilustrada</span>
                     <i class="fa-solid fa-arrow-right group-active:translate-x-0.5 transition"></i>
                 </button>
                 
                 <a href="https://www.instagram.com/gatikart/" target="_blank"
                         class="px-8 py-4 border border-white/20 hover:bg-white/5 font-medium rounded-3xl flex items-center gap-x-3 transition-all text-lg">
                     <i class="fa-brands fa-instagram text-xl text-fuchsia-400"></i>
-                    <span>Follow on Instagram</span>
+                    <span>Seguir en Instagram</span>
                 </a>
             </div>
             
@@ -279,31 +270,30 @@
                     <div class="w-7 h-7 rounded-full ring-2 ring-[#0b0b10] overflow-hidden"><img src="https://picsum.photos/id/201/28/28" alt=""></div>
                 </div>
                 <div class="text-slate-400 text-sm">
-                    Join thousands watching the journey unfold
+                    Únete a miles de personas siguiendo este viaje visual
                 </div>
             </div>
         </div>
         
         <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center text-xs tracking-widest text-slate-500">
-            <div>SCROLL TO EXPLORE ART</div>
+            <div>DESLIZA PARA EXPLORAR EL ARTE</div>
             <i class="fa-solid fa-chevron-down mt-1 animate-bounce"></i>
         </div>
     </header>
 
-    <!-- STATS BAR -->
     <div class="max-w-screen-2xl mx-auto px-8 -mt-6 relative z-20">
         <div class="glass border border-white/10 rounded-3xl px-8 py-5 flex flex-wrap items-center justify-between gap-y-4 text-sm">
             <div class="flex items-center gap-x-8">
                 <div>
-                    <div class="text-indigo-400 text-xs tracking-widest">ARTIST</div>
+                    <div class="text-indigo-400 text-xs tracking-widest">ARTISTA</div>
                     <div class="flex items-center gap-x-1.5 mt-0.5">
                         <span class="font-semibold text-2xl tracking-tight">Gatikart</span>
                     </div>
                 </div>
                 <div class="h-8 w-px bg-white/10"></div>
                 <div>
-                    <div class="text-xs text-slate-400 tracking-widest">PROJECT FEEDS</div>
-                    <div class="font-semibold text-2xl">Active <span class="text-sm font-normal text-emerald-400">●</span></div>
+                    <div class="text-xs text-slate-400 tracking-widest">ESTADO DE PROYECTOS</div>
+                    <div class="font-semibold text-2xl">Activo <span class="text-sm font-normal text-emerald-400">●</span></div>
                 </div>
             </div>
             
@@ -314,28 +304,108 @@
                 </a>
                 <div class="px-4 py-1.5 bg-white/5 rounded-2xl flex items-center gap-x-2">
                     <i class="fa-solid fa-palette text-indigo-400"></i>
-                    <span>Original Concept Art</span>
+                    <span>Arte de Concepto Original</span>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- FEATURED COMIC -->
-    <section id="featured-section" class="max-w-screen-2xl mx-auto px-8 pt-16 pb-12">
+    <section id="obras-principales" class="max-w-screen-2xl mx-auto px-8 pt-20 pb-12">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-10">
+            <div>
+                <span class="uppercase tracking-[3px] text-xs font-semibold text-fuchsia-400">GALERÍA PREMIUM</span>
+                <h2 class="section-header">Obras Maestras Destacadas</h2>
+            </div>
+            <p class="text-slate-400 text-sm max-w-md mt-2 md:mt-0">
+                Una selección exclusiva de las creaciones más representativas de <span class="text-white font-medium">Gatikart</span>, capturando mundos alternos y narrativas complejas.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="group relative rounded-3xl overflow-hidden border border-white/10 bg-[#121218] modern-shadow hover:border-fuchsia-500/40 transition-all duration-300">
+                <div class="aspect-[3/4] overflow-hidden relative">
+                    <img src="https://i.postimg.cc/FFyQG4Mz/descarga.png" alt="Obra Maestra Gatikart 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <div>
+                            <span class="text-xs font-mono text-fuchsia-400">EDICIÓN 01</span>
+                            <h4 class="text-lg font-semibold text-white tracking-tight">Composición Alfa</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-4 flex items-center justify-between text-xs border-t border-white/5">
+                    <span class="text-slate-400">Ilustración Principal</span>
+                    <a href="https://www.instagram.com/gatikart/" target="_blank" class="text-indigo-400 hover:underline">Detalles <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-[10px]"></i></a>
+                </div>
+            </div>
+
+            <div class="group relative rounded-3xl overflow-hidden border border-white/10 bg-[#121218] modern-shadow hover:border-fuchsia-500/40 transition-all duration-300">
+                <div class="aspect-[3/4] overflow-hidden relative">
+                    <img src="https://i.postimg.cc/x83DdvGn/descarga-(1).png" alt="Obra Maestra Gatikart 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <div>
+                            <span class="text-xs font-mono text-fuchsia-400">EDICIÓN 02</span>
+                            <h4 class="text-lg font-semibold text-white tracking-tight">Horizonte Urbano</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-4 flex items-center justify-between text-xs border-t border-white/5">
+                    <span class="text-slate-400">Concept Art</span>
+                    <a href="https://www.instagram.com/gatikart/" target="_blank" class="text-indigo-400 hover:underline">Detalles <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-[10px]"></i></a>
+                </div>
+            </div>
+
+            <div class="group relative rounded-3xl overflow-hidden border border-white/10 bg-[#121218] modern-shadow hover:border-fuchsia-500/40 transition-all duration-300">
+                <div class="aspect-[3/4] overflow-hidden relative">
+                    <img src="https://i.postimg.cc/90Y5fdPh/descarga-(2).png" alt="Obra Maestra Gatikart 3" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <div>
+                            <span class="text-xs font-mono text-fuchsia-400">EDICIÓN 03</span>
+                            <h4 class="text-lg font-semibold text-white tracking-tight">Esencia Cósmica</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-4 flex items-center justify-between text-xs border-t border-white/5">
+                    <span class="text-slate-400">Diseño Digital</span>
+                    <a href="https://www.instagram.com/gatikart/" target="_blank" class="text-indigo-400 hover:underline">Detalles <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-[10px]"></i></a>
+                </div>
+            </div>
+
+            <div class="group relative rounded-3xl overflow-hidden border border-white/10 bg-[#121218] modern-shadow hover:border-fuchsia-500/40 transition-all duration-300">
+                <div class="aspect-[3/4] overflow-hidden relative">
+                    <img src="https://i.postimg.cc/k5LdYXMS/descarga-(3).png" alt="Obra Maestra Gatikart 4" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                        <div>
+                            <span class="text-xs font-mono text-fuchsia-400">EDICIÓN 04</span>
+                            <h4 class="text-lg font-semibold text-white tracking-tight">Crónicas del Vacío</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-4 flex items-center justify-between text-xs border-t border-white/5">
+                    <span class="text-slate-400">Narrativa Visual</span>
+                    <a href="https://www.instagram.com/gatikart/" target="_blank" class="text-indigo-400 hover:underline">Detalles <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-[10px]"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="max-w-screen-2xl mx-auto px-8 my-4">
+        <div class="h-px section-divider"></div>
+    </div>
+
+    <section id="featured-section" class="max-w-screen-2xl mx-auto px-8 pt-12 pb-12">
         <div class="flex items-end justify-between mb-8">
             <div>
-                <span class="uppercase tracking-[3px] text-xs font-semibold text-indigo-400">FEATURED ARTWORK</span>
-                <h2 class="section-header">NEBULAE PROJECT</h2>
+                <span class="uppercase tracking-[3px] text-xs font-semibold text-indigo-400">PROYECTO PRINCIPAL</span>
+                <h2 class="section-header">PROYECTO NEBULAE</h2>
             </div>
             <button onclick="openReader(1)" 
                     class="hidden md:flex items-center gap-x-2 px-6 py-3 text-sm font-semibold border border-white/20 hover:bg-white/5 rounded-3xl transition-all active:scale-[0.985]">
-                <span>VIEW GALLERY MODE</span>
+                <span>VER EN MODO GALERÍA</span>
                 <i class="fa-solid fa-chevron-right text-xs"></i>
             </button>
         </div>
 
         <div class="grid md:grid-cols-12 gap-6">
-            <!-- Large Artwork -->
             <div class="md:col-span-7 relative group">
                 <div class="aspect-[16/10] rounded-3xl overflow-hidden comic-frame border border-white/10">
                     <img src="https://picsum.photos/id/1015/1400/875" 
@@ -346,15 +416,14 @@
                     
                     <div class="absolute bottom-0 left-0 right-0 p-8">
                         <div class="flex items-center gap-x-3 mb-3">
-                            <span class="px-3 py-1 text-xs font-medium bg-white/10 backdrop-blur-md rounded-full">SCI-FI DIGITAL ART</span>
-                            <span class="px-3 py-1 text-xs font-medium bg-white/10 backdrop-blur-md rounded-full">CONCEPT DESIGN</span>
+                            <span class="px-3 py-1 text-xs font-medium bg-white/10 backdrop-blur-md rounded-full">ARTE DIGITAL SCI-FI</span>
+                            <span class="px-3 py-1 text-xs font-medium bg-white/10 backdrop-blur-md rounded-full">DISEÑO DE CONCEPTO</span>
                         </div>
-                        <div class="text-white text-4xl font-semibold tracking-tighter">Chapter 01 — The Cosmic Horizon</div>
+                        <div class="text-white text-4xl font-semibold tracking-tighter">Capítulo 01 — El Horizonte Cósmico</div>
                     </div>
                 </div>
             </div>
             
-            <!-- Info Sidebar -->
             <div class="md:col-span-5 flex flex-col">
                 <div class="glass border border-white/10 rounded-3xl p-8 flex-1 flex flex-col">
                     <div class="flex items-center justify-between mb-6">
@@ -365,25 +434,25 @@
                             </a>
                         </div>
                         <div class="text-right">
-                            <div class="text-emerald-400 text-xs font-medium px-2 py-1 bg-emerald-500/10 rounded-xl">Open for Commissions</div>
+                            <div class="text-emerald-400 text-xs font-medium px-2 py-1 bg-emerald-500/10 rounded-xl">Comisiones Abiertas</div>
                         </div>
                     </div>
                     
                     <p class="text-slate-300 leading-relaxed flex-1">
-                        An exploration of futuristic spacescapes, detailed character art, and atmospheric concept worldbuilding. This visual collection showcases deep space anomalies, interstellar narrative beats, and cinematic visual design.
+                        Una exploración de paisajes espaciales futuristas, arte detallado de personajes y construcción de mundos conceptuales atmosféricos. Esta colección visual muestra anomalías del espacio profundo y un diseño visual puramente cinematográfico.
                     </p>
                     
                     <div class="pt-6 border-t border-white/10 mt-auto flex items-center justify-between text-sm">
                         <div class="flex items-center gap-x-4">
                             <div>
                                 <span class="font-mono text-lg font-semibold">01</span>
-                                <span class="text-slate-400">/ Concept Series</span>
+                                <span class="text-slate-400">/ Serie de Concepto</span>
                             </div>
                         </div>
                         
                         <button onclick="openReader(1)"
                                 class="md:hidden px-6 py-3 bg-white text-black text-sm font-semibold rounded-3xl flex items-center gap-x-2 active:scale-[0.985]">
-                            <span>LAUNCH VIEW</span>
+                            <span>INICIAR VISOR</span>
                         </button>
                     </div>
                 </div>
@@ -391,40 +460,34 @@
         </div>
     </section>
 
-    <!-- DISCOVER / TRENDING -->
     <section class="max-w-screen-2xl mx-auto px-8 pb-20">
         <div class="flex items-center justify-between mb-8">
-            <h3 class="text-3xl font-semibold tracking-tight">More Collections</h3>
+            <h3 class="text-3xl font-semibold tracking-tight">Más Colecciones</h3>
             <a href="https://www.instagram.com/gatikart/" target="_blank" class="text-sm flex items-center gap-x-2 text-indigo-400 hover:text-indigo-300 transition-colors font-medium">
-                SEE INSTAGRAM FEED <i class="fa-solid fa-arrow-right ml-1.5"></i>
+                VER FEED DE INSTAGRAM <i class="fa-solid fa-arrow-right ml-1.5"></i>
             </a>
         </div>
         
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-5" id="discover-grid">
-            <!-- Populated by JS -->
-        </div>
+            </div>
     </section>
 
-    <!-- READER OVERLAY -->
     <div id="reader-overlay" onclick="if (event.target.id === 'reader-overlay') closeReader()" 
          class="hidden fixed inset-0 z-[100] bg-black/90 backdrop-blur-xl flex items-center justify-center p-4 md:p-6">
         
         <div onclick="event.stopImmediatePropagation()" 
              class="w-full max-w-[1180px] bg-[#0b0b10] border border-white/10 shadow-2xl rounded-3xl overflow-hidden flex flex-col max-h-[96dvh]">
             
-            <!-- Reader Header -->
             <div class="px-6 md:px-8 py-4 border-b border-white/10 flex items-center justify-between bg-[#0b0b10]/95 backdrop-blur-lg z-10">
                 <div class="flex items-center gap-x-4">
-                    <!-- Logo + Title -->
                     <div class="flex items-center gap-x-3">
                         <div class="w-8 h-8 rounded-2xl bg-gradient-to-br from-indigo-500 to-fuchsia-500 flex-shrink-0 flex items-center justify-center text-white font-bold text-xs">G</div>
                         <div>
-                            <div class="font-semibold tracking-tight uppercase">GATIKART SHOWCASE</div>
-                            <div class="text-xs text-slate-400 -mt-0.5">Nebulae Series • Chapter 01</div>
+                            <div class="font-semibold tracking-tight uppercase">GALERÍA GATIKART</div>
+                            <div class="text-xs text-slate-400 -mt-0.5">Serie Nebulae • Capítulo 01</div>
                         </div>
                     </div>
                     
-                    <!-- Progress -->
                     <div class="hidden md:flex items-center gap-x-3 ml-4 pl-4 border-l border-white/10">
                         <div class="text-xs font-mono text-slate-400 w-9" id="progress-text">01 / 10</div>
                         <div class="w-28 h-1.5 bg-white/10 rounded-full overflow-hidden">
@@ -434,7 +497,6 @@
                 </div>
                 
                 <div class="flex items-center gap-x-2">
-                    <!-- Mode Switcher -->
                     <div class="flex items-center bg-white/5 p-1 rounded-3xl border border-white/10">
                         <button onclick="switchReaderMode('vertical')" id="mode-vertical"
                                 class="mode-btn active px-4 py-1.5 text-xs font-medium rounded-[2rem] flex items-center gap-x-1.5">
@@ -449,7 +511,7 @@
                         <button onclick="switchReaderMode('cinema')" id="mode-cinema"
                                 class="mode-btn px-4 py-1.5 text-xs font-medium rounded-[2rem] flex items-center gap-x-1.5">
                             <i class="fa-solid fa-play w-3.5"></i>
-                            <span class="hidden sm:inline text-xs">Cinema</span>
+                            <span class="hidden sm:inline text-xs">Cine</span>
                         </button>
                     </div>
                     
@@ -460,44 +522,37 @@
                 </div>
             </div>
             
-            <!-- Reader Content -->
             <div id="reader-content" class="flex-1 overflow-hidden relative bg-black flex flex-col">
-                <!-- Dynamic content injected here by JS -->
-            </div>
+                </div>
             
-            <!-- Thumbnail Navigator -->
             <div class="px-6 py-4 border-t border-white/10 bg-[#0b0b10] flex items-center gap-x-3 overflow-x-auto reader-container" id="thumbnail-strip">
-                <!-- Populated dynamically -->
-            </div>
+                </div>
             
-            <!-- Footer Controls -->
             <div class="px-6 py-4 border-t border-white/10 flex items-center justify-between bg-[#0b0b10]">
                 <div class="flex items-center gap-x-2">
                     <button onclick="prevPanel()" 
                             class="px-5 py-2 flex items-center gap-x-2 text-sm font-medium border border-white/20 hover:bg-white/5 rounded-2xl transition-all active:scale-[0.985]">
                         <i class="fa-solid fa-chevron-left"></i>
-                        <span class="hidden sm:inline">Prev</span>
+                        <span class="hidden sm:inline">Anterior</span>
                     </button>
                     <button onclick="nextPanel()" 
                             class="px-5 py-2 flex items-center gap-x-2 text-sm font-medium border border-white/20 hover:bg-white/5 rounded-2xl transition-all active:scale-[0.985]">
-                        <span class="hidden sm:inline">Next</span>
+                        <span class="hidden sm:inline">Siguiente</span>
                         <i class="fa-solid fa-chevron-right"></i>
                     </button>
                 </div>
                 
                 <div class="flex items-center gap-x-4">
-                    <!-- Settings -->
                     <div class="relative group">
                         <button onclick="toggleSettings()" class="px-4 py-2 flex items-center gap-x-2 text-sm border border-white/10 hover:bg-white/5 rounded-2xl transition-all">
                             <i class="fa-solid fa-sliders-h"></i>
-                            <span class="hidden md:inline text-xs font-medium">SETTINGS</span>
+                            <span class="hidden md:inline text-xs font-medium">AJUSTES</span>
                         </button>
                         
-                        <!-- Settings Dropdown -->
                         <div id="settings-panel" class="hidden absolute bottom-full right-0 mb-2 w-64 glass border border-white/10 rounded-3xl p-5 text-sm shadow-2xl z-50">
                             <div class="space-y-4">
                                 <div>
-                                    <label class="text-xs text-slate-400 block mb-1.5">TEXT SIZE</label>
+                                    <label class="text-xs text-slate-400 block mb-1.5">TAMAÑO DE TEXTO</label>
                                     <div class="flex items-center gap-x-3">
                                         <button onclick="adjustTextSize(-1)" class="w-8 h-8 flex items-center justify-center border border-white/20 rounded-2xl hover:bg-white/5">-</button>
                                         <div class="flex-1 text-center font-mono text-xs" id="text-size-value">100%</div>
@@ -506,7 +561,7 @@
                                 </div>
                                 
                                 <div class="flex items-center justify-between pt-2 border-t border-white/10">
-                                    <div class="text-xs">Auto-advance (Cinema)</div>
+                                    <div class="text-xs">Avance Automático (Cine)</div>
                                     <label class="relative inline-flex items-center cursor-pointer">
                                         <input type="checkbox" id="auto-advance-toggle" onchange="toggleAutoAdvance()" class="sr-only peer">
                                         <div class="w-9 h-5 bg-white/10 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[1px] after:left-[1px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-indigo-500"></div>
@@ -522,7 +577,7 @@
                     
                     <a href="https://www.instagram.com/gatikart/" target="_blank" class="px-5 py-2 text-xs font-medium border border-white/10 hover:bg-white/5 rounded-2xl flex items-center gap-x-2 transition-all">
                         <i class="fa-solid fa-heart text-fuchsia-400"></i>
-                        <span>Support Artist</span>
+                        <span>Apoyar Artista</span>
                     </a>
                 </div>
             </div>
@@ -581,11 +636,9 @@
                     ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
                     ctx.fill();
                     
-                    // Slow drift
                     p.y += p.speed;
                     p.x += p.drift * 0.3;
                     
-                    // Reset when off screen
                     if (p.y > canvas.height * 0.95) {
                         p.y = Math.random() * canvas.height * 0.3;
                         p.x = Math.random() * canvas.width;
@@ -604,57 +657,57 @@
         const discoverComics = [
             {
                 id: 1,
-                title: "NEBULAE PROJECT",
+                title: "PROYECTO NEBULAE",
                 author: "Gatikart",
                 cover: "https://picsum.photos/id/1015/400/560",
                 rating: 9.9,
-                readers: "Featured",
-                tags: ["Sci-Fi", "Digital Art"],
+                readers: "Destacado",
+                tags: ["Sci-Fi", "Arte Digital"],
                 isFeatured: true
             },
             {
                 id: 2,
-                title: "Cyberpunk Horizons",
+                title: "Horizontes Cyberpunk",
                 author: "Gatikart",
                 cover: "https://picsum.photos/id/160/400/560",
                 rating: 9.6,
-                readers: "Concept",
-                tags: ["Mecha", "Neon"]
+                readers: "Concepto",
+                tags: ["Mecha", "Neón"]
             },
             {
                 id: 3,
-                title: "Eldritch Echoes",
+                title: "Ecos del Abismo",
                 author: "Gatikart",
                 cover: "https://picsum.photos/id/201/400/560",
                 rating: 9.5,
-                readers: "Illustration",
-                tags: ["Dark Fantasy"]
+                readers: "Ilustración",
+                tags: ["Fantasía Oscura"]
             },
             {
                 id: 4,
-                title: "Starlight Protocol",
+                title: "Protocolo Estelar",
                 author: "Gatikart",
                 cover: "https://picsum.photos/id/251/400/560",
                 rating: 9.4,
-                readers: "Sketchbook",
-                tags: ["Spaceships"]
+                readers: "Bocetos",
+                tags: ["Naves"]
             },
             {
                 id: 5,
-                title: "Fractured Realities",
+                title: "Realidades Fracturadas",
                 author: "Gatikart",
                 cover: "https://picsum.photos/id/29/400/560",
                 rating: 9.7,
-                readers: "Painting",
-                tags: ["Surrealism"]
+                readers: "Pintura",
+                tags: ["Surrealismo"]
             },
             {
                 id: 6,
-                title: "Void Exploration",
+                title: "Exploración del Vacío",
                 author: "Gatikart",
                 cover: "https://picsum.photos/id/30/400/560",
                 rating: 9.8,
-                readers: "Recent",
+                readers: "Reciente",
                 tags: ["Sci-Fi"]
             }
         ];
@@ -676,7 +729,7 @@
                         
                         ${comic.isFeatured ? `
                             <div class="absolute top-3 left-3 px-3 py-0.5 text-[10px] font-semibold tracking-wider bg-white/90 text-black rounded-full flex items-center">
-                                PRIMARY
+                                PRINCIPAL
                             </div>
                         ` : ''}
                         
@@ -704,7 +757,7 @@
                         
                         <button onclick="event.stopImmediatePropagation(); ${comic.isFeatured ? 'openReader(1)' : 'window.open(\'https://www.instagram.com/gatikart/\', \'_blank\')'}" 
                                 class="text-xs px-4 py-1 rounded-2xl border border-white/20 hover:bg-white/5 transition-colors font-medium">
-                            ${comic.isFeatured ? 'VIEW' : 'LINK'}
+                            ${comic.isFeatured ? 'VER' : 'LINK'}
                         </button>
                     </div>
                 `;
@@ -724,62 +777,38 @@
             {
                 num: 1,
                 src: "https://picsum.photos/id/1015/900/1200",
-                dialogue: "Captain's Log — Cycle 47. We have arrived at the coordinates. The Nebula Cluster is... alive. The instruments can't explain it.",
+                dialogue: "Bitácora de la Capitana — Ciclo 47. Hemos llegado a las coordenadas. El Cúmulo de Nebulosas está... vivo. Los instrumentos no pueden explicarlo.",
                 speaker: "LIRA KANE"
             },
             {
                 num: 2,
                 src: "https://picsum.photos/id/160/900/1200",
-                dialogue: "This signal... it isn't random. It's repeating. Almost like it's... waiting for us.",
+                dialogue: "Esta señal... no es aleatoria. Se está repitiendo. Casi como si estuviera... esperándonos.",
                 speaker: "LIRA KANE"
             },
             {
                 num: 3,
                 src: "https://picsum.photos/id/201/900/1200",
-                dialogue: "The void is breathing. I can feel it in my bones. Whatever is out there has been waiting for a very long time.",
+                dialogue: "El vacío está respirando. Puedo sentirlo en mis huesos. Lo que sea que esté ahí fuera ha estado esperando durante mucho tiempo.",
                 speaker: "DR. ELIAN VOSS"
             },
             {
                 num: 4,
                 src: "https://picsum.photos/id/251/900/1200",
-                dialogue: "Captain, the hull is registering micro-fractures. But there's no debris. Something is... pulling at the ship.",
-                speaker: "ENGINEER RAY"
+                dialogue: "Capitana, el casco está registrando microfracturas. Pero no hay escombros. Algo está... tirando de la nave.",
+                speaker: "INGENIERO RAY"
             },
             {
                 num: 5,
                 src: "https://picsum.photos/id/29/900/1200",
-                dialogue: "We're not explorers anymore. We're guests. And I don't think the host is friendly.",
+                dialogue: "Ya no somos exploradores. Somos invitados. Y no creo que el anfitrión sea amigable.",
                 speaker: "LIRA KANE"
             },
             {
                 num: 6,
                 src: "https://picsum.photos/id/30/900/1200",
-                dialogue: "The stars are wrong. They've rearranged themselves. This place remembers us... from before we existed.",
+                dialogue: "Las estrellas están mal. Se han reorganizado. Este lugar nos recuerda... desde antes de que existiéramos.",
                 speaker: "DR. ELIAN VOSS"
-            },
-            {
-                num: 7,
-                src: "https://picsum.photos/id/1033/900/1200",
-                dialogue: "I saw something move inside the nebula. Not a ship. Not a creature. Something older than light itself.",
-                speaker: "CREW MEMBER"
-            },
-            {
-                num: 8,
-                src: "https://picsum.photos/id/1040/900/1200",
-                dialogue: "We came here looking for answers. I think we just found the question that ends everything.",
-                speaker: "LIRA KANE"
-            },
-            {
-                num: 9,
-                src: "https://picsum.photos/id/106/900/1200",
-                dialogue: "The signal is growing stronger. It's no longer calling... It's answering.",
-                speaker: "DR. ELIAN VOSS"
-            },
-            {
-                num: 10,
-                src: "https://picsum.photos/id/1016/900/1200",
-                dialogue: "Whatever happens next — we go together. That's the only rule that still matters out here.",
-                speaker: "LIRA KANE"
             }
         ];
         
@@ -793,23 +822,16 @@
             overlay.classList.remove('hidden');
             overlay.classList.add('flex');
             
-            // Reset state
             currentPanelIndex = 0;
             document.getElementById('bookmark-btn').innerHTML = `<i class="fa-regular fa-bookmark"></i>`;
             
-            // Load saved progress
             const saved = localStorage.getItem('gatikart_nebulae_progress');
             if (saved) {
                 currentPanelIndex = parseInt(saved);
             }
             
-            // Default to vertical
             switchReaderMode('vertical');
-            
-            // Update progress UI
             updateProgressUI();
-            
-            // Keyboard support
             document.addEventListener('keydown', handleReaderKeyboard, { once: true });
         }
         
@@ -828,7 +850,6 @@
         
         function switchReaderMode(mode) {
             currentMode = mode;
-            
             document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active', 'bg-indigo-500', 'text-white'));
             
             let activeBtn;
@@ -845,7 +866,6 @@
             const container = document.getElementById('reader-content');
             container.innerHTML = '';
             container.className = `flex-1 overflow-hidden relative bg-black flex flex-col`;
-            
             container.onscroll = null;
             
             if (mode === 'vertical') {
@@ -857,10 +877,7 @@
             }
             
             renderThumbnailStrip();
-            
-            setTimeout(() => {
-                scrollToPanel(currentPanelIndex);
-            }, 80);
+            setTimeout(() => { scrollToPanel(currentPanelIndex); }, 80);
         }
         
         function renderVerticalMode(container) {
@@ -886,19 +903,12 @@
                             <span class="text-[10px]">ZOOM</span>
                         </button>
                     </div>
-                    
                     <div class="relative">
-                        <img src="${panel.src}" alt="Panel ${panel.num}" 
-                             class="w-full object-cover aspect-[4/3.1] md:aspect-auto md:h-[620px]"
-                             loading="lazy">
-                        
+                        <img src="${panel.src}" alt="Panel ${panel.num}" class="w-full object-cover aspect-[4/3.1] md:aspect-auto md:h-[620px]" loading="lazy">
                         <div class="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/60 to-transparent pointer-events-none"></div>
                     </div>
-                    
                     <div class="px-6 py-5">
-                        <div class="dialogue text-[15.2px] leading-relaxed">
-                            ${panel.dialogue}
-                        </div>
+                        <div class="dialogue text-[15.2px] leading-relaxed">${panel.dialogue}</div>
                     </div>
                 `;
                 
@@ -909,31 +919,14 @@
                         panelEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     }
                 };
-                
                 wrapper.appendChild(panelEl);
             });
             
             container.appendChild(wrapper);
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const idx = parseInt(entry.target.dataset.panelIndex);
-                        if (idx > currentPanelIndex) {
-                            currentPanelIndex = idx;
-                            updateProgressUI();
-                            localStorage.setItem('gatikart_nebulae_progress', currentPanelIndex);
-                        }
-                    }
-                });
-            }, { threshold: 0.65 });
-            
-            wrapper.querySelectorAll('.comic-panel').forEach(el => observer.observe(el));
         }
         
         function renderHorizontalMode(container) {
             container.style.overflow = 'hidden';
-            
             const scroller = document.createElement('div');
             scroller.className = `flex h-full overflow-x-auto scroll-snap-x reader-container snap-x snap-mandatory`;
             scroller.style.scrollBehavior = 'smooth';
@@ -948,103 +941,65 @@
                         <div class="px-6 pt-5 pb-3 flex items-center justify-between bg-black/60">
                             <div class="flex items-center gap-x-3">
                                 <div class="panel-number text-3xl font-mono font-semibold text-indigo-300/90">${String(panel.num).padStart(2, '0')}</div>
-                                <div>
-                                    <div class="uppercase tracking-[2px] text-xs text-slate-400">${panel.speaker}</div>
-                                </div>
+                                <div class="uppercase tracking-[2px] text-xs text-slate-400">${panel.speaker}</div>
                             </div>
-                            
                             <button onclick="zoomPanel(${index}, event)" class="px-4 py-1 text-xs rounded-2xl border border-white/10 flex items-center gap-x-2 hover:bg-white/5">
                                 <i class="fa-solid fa-search-plus"></i>
-                                <span>Focus</span>
+                                <span>Enfoque</span>
                             </button>
                         </div>
-                        
                         <img src="${panel.src}" alt="Panel ${panel.num}" class="w-full object-cover max-h-[62vh] md:max-h-[66vh]">
-                        
                         <div class="px-7 py-6 bg-[#0b0b10]">
-                            <div class="dialogue text-[15.5px] max-w-prose">
-                                ${panel.dialogue}
-                            </div>
+                            <div class="dialogue text-[15.5px] max-w-prose">${panel.dialogue}</div>
                         </div>
                     </div>
                 `;
-                
-                slide.onclick = (e) => {
-                    if (!e.target.closest('button')) {
-                        currentPanelIndex = index;
-                        updateProgressUI();
-                    }
-                };
-                
+                slide.onclick = (e) => { if (!e.target.closest('button')) { currentPanelIndex = index; updateProgressUI(); } };
                 scroller.appendChild(slide);
             });
-            
             container.appendChild(scroller);
             
             scroller.onscroll = () => {
                 const slides = scroller.querySelectorAll('[data-panel-index]');
                 let closest = currentPanelIndex;
                 let minDistance = Infinity;
-                
                 slides.forEach(slide => {
                     const rect = slide.getBoundingClientRect();
                     const distance = Math.abs(rect.left - container.getBoundingClientRect().left);
-                    if (distance < minDistance) {
-                        minDistance = distance;
-                        closest = parseInt(slide.dataset.panelIndex);
-                    }
+                    if (distance < minDistance) { minDistance = distance; closest = parseInt(slide.dataset.panelIndex); }
                 });
-                
-                if (closest !== currentPanelIndex) {
-                    currentPanelIndex = closest;
-                    updateProgressUI();
-                    renderThumbnailStrip();
-                }
+                if (closest !== currentPanelIndex) { currentPanelIndex = closest; updateProgressUI(); renderThumbnailStrip(); }
             };
         }
         
         function renderCinemaMode(container) {
             container.style.overflow = 'hidden';
-            container.style.background = '#050507';
-            
             const cinemaWrapper = document.createElement('div');
             cinemaWrapper.className = `flex-1 flex items-center justify-center relative px-4`;
             
             function renderCurrentCinemaPanel() {
                 cinemaWrapper.innerHTML = '';
                 const panel = panelsData[currentPanelIndex];
-                
                 const panelDiv = document.createElement('div');
                 panelDiv.className = `max-w-[920px] w-full comic-panel bg-black rounded-3xl overflow-hidden border border-white/10 shadow-[0_0_80px_rgb(0,0,0)]`;
                 
                 panelDiv.innerHTML = `
                     <div class="relative">
-                        <img src="${panel.src}" alt="Panel ${panel.num}" 
-                             class="w-full max-h-[72vh] object-contain cursor-pointer" 
-                             onclick="nextPanel()">
-                        
-                        <div class="absolute top-5 left-5 px-4 py-1 bg-black/70 text-xs font-mono tracking-widest rounded-2xl flex items-center gap-x-2">
-                            <span class="text-indigo-300">${String(panel.num).padStart(2, '0')}</span>
-                            <span class="text-white/40">/ ${panelsData.length}</span>
+                        <img src="${panel.src}" alt="Panel ${panel.num}" class="w-full max-h-[72vh] object-contain cursor-pointer" onclick="nextPanel()">
+                        <div class="absolute top-5 left-5 px-4 py-1 bg-black/70 text-xs font-mono tracking-widest rounded-2xl">
+                            <span class="text-indigo-300">${String(panel.num).padStart(2, '0')}</span> <span class="text-white/40">/ ${panelsData.length}</span>
                         </div>
-                        
                         <div class="absolute top-5 right-5 px-4 py-1 bg-black/70 text-xs rounded-2xl flex items-center gap-x-1.5 cursor-pointer" onclick="event.stopImmediatePropagation(); zoomPanel(${currentPanelIndex}, event)">
-                            <i class="fa-solid fa-search-plus"></i>
-                            <span class="text-xs hidden md:inline">ENLARGE</span>
+                            <i class="fa-solid fa-search-plus"></i> <span class="text-xs hidden md:inline">AMPLIAR</span>
                         </div>
                     </div>
-                    
                     <div class="px-8 py-7 bg-[#0b0b10]">
                         <div class="uppercase text-xs tracking-[2.5px] text-indigo-300 mb-2">${panel.speaker}</div>
-                        <div class="dialogue text-lg leading-relaxed max-w-3xl">
-                            ${panel.dialogue}
-                        </div>
+                        <div class="dialogue text-lg leading-relaxed max-w-3xl">${panel.dialogue}</div>
                     </div>
                 `;
-                
                 cinemaWrapper.appendChild(panelDiv);
             }
-            
             renderCurrentCinemaPanel();
             container.appendChild(cinemaWrapper);
         }
@@ -1056,46 +1011,26 @@
             panelsData.forEach((panel, index) => {
                 const thumb = document.createElement('div');
                 thumb.className = `mini-thumb flex-shrink-0 w-14 h-14 md:w-[62px] md:h-[62px] rounded-2xl overflow-hidden cursor-pointer border-2 ${index === currentPanelIndex ? 'active border-indigo-500' : 'border-transparent'}`;
-                
-                thumb.innerHTML = `
-                    <img src="${panel.src}" alt="Panel ${panel.num} thumbnail" class="w-full h-full object-cover">
-                `;
+                thumb.innerHTML = `<img src="${panel.src}" class="w-full h-full object-cover">`;
                 
                 thumb.onclick = () => {
                     currentPanelIndex = index;
                     updateProgressUI();
                     renderThumbnailStrip();
-                    
-                    if (currentMode === 'vertical') {
-                        const container = document.getElementById('reader-content');
-                        const targetPanel = container.querySelector(`[data-panel-index="${index}"]`);
-                        if (targetPanel) targetPanel.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    } else if (currentMode === 'horizontal') {
-                        const scroller = document.getElementById('reader-content').querySelector('.flex');
-                        if (scroller) {
-                            const targetSlide = scroller.children[index];
-                            targetSlide.scrollIntoView({ behavior: 'smooth', inline: 'start' });
-                        }
-                    } else if (currentMode === 'cinema') {
-                        renderReaderContent('cinema');
-                    }
+                    scrollToPanel(index);
                 };
-                
                 strip.appendChild(thumb);
             });
         }
         
         function scrollToPanel(index) {
             const container = document.getElementById('reader-content');
-            
             if (currentMode === 'vertical') {
                 const target = container.querySelector(`[data-panel-index="${index}"]`);
                 if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
             } else if (currentMode === 'horizontal') {
                 const scroller = container.querySelector('.flex');
-                if (scroller && scroller.children[index]) {
-                    scroller.children[index].scrollIntoView({ behavior: 'smooth', inline: 'start' });
-                }
+                if (scroller && scroller.children[index]) scroller.children[index].scrollIntoView({ behavior: 'smooth', inline: 'start' });
             } else if (currentMode === 'cinema') {
                 renderReaderContent('cinema');
             }
@@ -1104,7 +1039,6 @@
         function updateProgressUI() {
             const progressBar = document.getElementById('progress-bar');
             const progressText = document.getElementById('progress-text');
-            
             const percent = ((currentPanelIndex + 1) / panelsData.length) * 100;
             
             if (progressBar) progressBar.style.width = `${percent}%`;
@@ -1116,19 +1050,17 @@
         
         function nextPanel() {
             if (currentPanelIndex < panelsData.length - 1) {
-                currentPanelIndex++;
-                updateProgressUI();
+                currentPanelIndex++; updateProgressUI();
                 if (currentMode === 'cinema') renderReaderContent('cinema');
                 else scrollToPanel(currentPanelIndex);
             } else {
-                showToast("End of visual showcase. Check Instagram for more updates!", 'success');
+                showToast("Fin de la muestra visual. ¡Sigue el Instagram para actualizaciones!");
             }
         }
         
         function prevPanel() {
             if (currentPanelIndex > 0) {
-                currentPanelIndex--;
-                updateProgressUI();
+                currentPanelIndex--; updateProgressUI();
                 if (currentMode === 'cinema') renderReaderContent('cinema');
                 else scrollToPanel(currentPanelIndex);
             }
@@ -1143,15 +1075,14 @@
             zoomOverlay.innerHTML = `
                 <div class="max-w-[1100px] w-full">
                     <div class="flex justify-between items-center mb-3 px-1">
-                        <div class="font-mono text-sm text-white/60">PANEL ${String(panel.num).padStart(2, '0')} — FOCUS MODE</div>
+                        <div class="font-mono text-sm text-white/60">PANEL ${String(panel.num).padStart(2, '0')} — MODO ENFOQUE</div>
                         <button class="text-3xl text-white/70 hover:text-white transition-colors">&times;</button>
                     </div>
                     <div class="rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
-                        <img src="${panel.src}" alt="Panel ${panel.num} enlarged" class="w-full max-h-[82vh] object-contain bg-black">
+                        <img src="${panel.src}" class="w-full max-h-[82vh] object-contain bg-black">
                     </div>
                 </div>
             `;
-            
             zoomOverlay.onclick = () => zoomOverlay.remove();
             zoomOverlay.querySelector('button').onclick = () => zoomOverlay.remove();
             document.body.appendChild(zoomOverlay);
@@ -1160,16 +1091,12 @@
         function handleReaderKeyboard(e) {
             const overlay = document.getElementById('reader-overlay');
             if (overlay.classList.contains('hidden')) return;
-            
             if (e.key === 'Escape') closeReader();
             else if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); nextPanel(); }
             else if (e.key === 'ArrowLeft') prevPanel();
         }
         
-        function toggleSettings() {
-            const panel = document.getElementById('settings-panel');
-            panel.classList.toggle('hidden');
-        }
+        function toggleSettings() { document.getElementById('settings-panel').classList.toggle('hidden'); }
         
         function adjustTextSize(delta) {
             currentTextScale = Math.max(85, Math.min(130, currentTextScale + delta));
@@ -1182,14 +1109,12 @@
         function toggleAutoAdvance() {
             const checkbox = document.getElementById('auto-advance-toggle');
             if (checkbox.checked) {
-                if (autoAdvanceInterval) clearInterval(autoAdvanceInterval);
                 autoAdvanceInterval = setInterval(() => {
                     if (currentMode === 'cinema' && currentPanelIndex < panelsData.length - 1) nextPanel();
                     else { checkbox.checked = false; clearInterval(autoAdvanceInterval); }
                 }, 3800);
             } else if (autoAdvanceInterval) {
-                clearInterval(autoAdvanceInterval);
-                autoAdvanceInterval = null;
+                clearInterval(autoAdvanceInterval); autoAdvanceInterval = null;
             }
         }
         
@@ -1197,20 +1122,18 @@
             const btn = document.getElementById('bookmark-btn');
             const icon = btn.querySelector('i');
             if (icon.classList.contains('fa-regular')) {
-                icon.classList.remove('fa-regular');
-                icon.classList.add('fa-solid', 'text-fuchsia-400');
-                showToast('Bookmarked position.');
+                icon.className = 'fa-solid fa-bookmark text-fuchsia-400';
+                showToast('Posición guardada.');
                 localStorage.setItem('gatikart_bookmark', currentPanelIndex);
             } else {
-                icon.classList.add('fa-regular');
-                icon.classList.remove('fa-solid', 'text-fuchsia-400');
+                icon.className = 'fa-regular fa-bookmark';
                 localStorage.removeItem('gatikart_bookmark');
             }
         }
         
-        function showToast(message, type = 'success') {
+        function showToast(message) {
             const toast = document.createElement('div');
-            toast.className = `toast fixed bottom-6 right-6 z-[300] px-6 py-3.5 rounded-3xl flex items-center gap-x-3 text-sm shadow-2xl max-w-xs bg-zinc-800 border border-white/10`;
+            toast.className = `toast fixed bottom-6 right-6 z-[300] px-6 py-3.5 rounded-3xl text-sm bg-zinc-800 border border-white/10`;
             toast.innerHTML = `<span>${message}</span>`;
             document.body.appendChild(toast);
             setTimeout(() => { toast.remove(); }, 2800);
@@ -1226,8 +1149,8 @@
                         <button class="text-3xl">&times;</button>
                     </div>
                     <div class="flex flex-col text-xl gap-y-4 font-medium">
-                        <a href="#" class="py-2">Discover</a>
-                        <a href="#" class="py-2">Gallery</a>
+                        <a href="#" class="py-2">Descubrir</a>
+                        <a href="#obras-principales" class="py-2">Obras</a>
                         <a href="https://www.instagram.com/gatikart/" target="_blank" class="py-2 text-indigo-400">Instagram</a>
                     </div>
                 </div>
@@ -1236,9 +1159,7 @@
             document.body.appendChild(menu);
         }
         
-        function showProfileMenu() {
-            // Placeholder interaction
-        }
+        function showProfileMenu() {}
         
         function initSearch() {
             const input = document.getElementById('search-input');
